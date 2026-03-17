@@ -20,8 +20,11 @@ HireVest is a premium, high-performance job portal designed for the modern job-s
 - #### 🖥️ Main Dashboard
     ![home](images/HomePage.jpg)
 
-- #### 📝 Job Listing
+- #### 📝 Job Listings
     ![listing](images/JobListings.jpg)
+
+- #### HireVest Navigational AI-Bot
+    ![ai-bot](images/image.png)
 
 - #### 📊 Financial Insights in Action
     ![stock](images/StockInAction.jpg)
@@ -64,4 +67,4 @@ HireVest is a premium, high-performance job portal designed for the modern job-s
 - #### Yashraj Kore - Passionate Web/Java Developer & Financial Enthusiast
 - #### Tejas Jadhav - Passionate Web/Python Developer
 - #### Karan More - Passionate Web/Java Developer
-- #### Aditya Patil - Passionate Developer
+- #### Aditya Patil - Passionate Web Developer
