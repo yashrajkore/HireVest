@@ -18,7 +18,7 @@ app.use(express.static('public'));
 const storage = multer.diskStorage({
   destination: './uploads/',
   filename: (req, file, cb) => {
-    cb(null, Date.now() + path.extname(file.originalname)); // unique file name
+    cb(null, Date.now() + path.extname(file.originalname));
   }
 });
 const upload = multer({ storage });
@@ -42,8 +42,8 @@ app.post('/apply', upload.single('resume'), (req, res) => {
   const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-      user: 'jobvista999@gmail.com',             // Replace with your Gmail
-      pass: 'vfrp ibcf ladb zrvl'                // Replace with your App Password
+      user: 'jobvista999@gmail.com',         
+      pass: 'petgrnjbogxhzwyk'               
     }
   });
 
