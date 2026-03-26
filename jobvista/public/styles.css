@@ -9,9 +9,11 @@ body {
 }
 header {
   display: flex;
+  position: sticky;
+  top: 0;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 50px;
+  padding: 10px 30px;
   background: #03040c;
 }
 .logo {
