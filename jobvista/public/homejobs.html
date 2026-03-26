@@ -123,24 +123,111 @@
         background: #7c3aed;
         transform: scale(1.1);
       }
-      #listing{
-        float: right;
-        margin-right: 50px;
-      }
-      #filter{
-        float: left;
-        margin-left: 50px;
-        font-size: 16px;
-      }
+
+      /* Filter Bar Container */
+#filter-bar {
+    background: #090c1e;
+    padding: 15px 50px;
+    border-bottom: 1px solid #1e293b;
+    position: sticky;
+    top: 4.0rem;    /* This matches your nav height exactly */
+    z-index: 100;   /* Stays below the navbar */
+}
+
+.filter-container {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+/* Modern Pill Buttons */
+.filter-item {
+    position: relative;
+}
+
+.filter-btn {
+    background: #1e293b;
+    color: white;
+    border: 1px solid #334155;
+    padding: 8px 18px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+.filter-btn:hover {
+    background: #334155;
+    border-color: #6495ed;
+}
+
+/* Dropdown Menu */
+.filter-dropdown {
+    display: none;
+    position: absolute;
+    top: 110%;
+    left: 0;
+    background: #0f172a;
+    border: 1px solid #334155;
+    border-radius: 12px;
+    padding: 15px;
+    min-width: 200px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+}
+
+.filter-item:hover .filter-dropdown {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.filter-dropdown label {
+    color: #cbd5e1;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#clear-filters {
+    background: transparent;
+    border: none;
+    color: #6495ed;
+    cursor: pointer;
+    font-weight: 600;
+    margin-left: auto;
+}
+
+/* Layout Fix: Center the Job Listings */
+#listing {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin: 0 auto;
+    float: none; /* Removed Float */
+}
+
+.job-card {
+    width: 90%;
+    max-width: 800px; /* Slimmer cards look more modern */
+}
+
     #top_pos{
         margin-top: 120px;
     }
     nav{
-        width: auto;
+        position: sticky; /* Make it stick */
+        top: 0;          /* At the very top */
+        z-index: 1001;   /* Higher than filter-bar (which is 100) */
+        width: 100%;     /* Changed from auto to 100% to span the screen */
         height: 4.0rem;
         background: #03040c;
-        padding-top: 20px;
+        display: flex;   /* Recommended: helps keep items aligned while sticky */
+        align-items: center;
         padding-left: 50px;
+        box-sizing: border-box;
         #strtr{
             margin-left: 950px;
         }
@@ -414,62 +501,62 @@
             </span>
         </span>
     </nav>
-    <section id="filter">
-        <h2 style="color: white; font-size: 32px;">Filter<br>Jobs</h2>
-        <hr><br>
-        <h3 style="color: white; font-size:26px;">Location</h3>
-        <input type="checkbox" id="Mumbai"> 
-        <label for="Mumbai" style="color: white; font-size: 20px;">Mumbai</label><br>
-        <input type="checkbox" id="Pune">
-        <label for="Pune" style="color: white; font-size: 20px;">Pune</label><br>
-        <input type="checkbox" id="Nagpur">
-        <label for="Nagpur" style="color: white; font-size: 20px;">Nagpur</label><br>
-        <input type="checkbox" id="Bangalore">
-        <label for="Bangalore" style="color: white; font-size: 20px;">Bangalore</label><br>
-        <input type="checkbox" id="Hyderabad">
-        <label for="Hyderabad" style="color: white; font-size: 20px;">Hyderabad</label><br>
-        <input type="checkbox" id="Thane">
-        <label for="Thane" style="color: white; font-size: 20px;">Thane</label><br>
-        <input type="checkbox" id="Noida">
-        <label for="Noida" style="color: white; font-size: 20px;">Noida</label><br>
+    
+    <section id="filter-bar">
+    <div class="filter-container">
+        <div class="filter-item">
+            <button class="filter-btn">Location <i class="fas fa-chevron-down"></i></button>
+            <div class="filter-dropdown">
+                <label><input type="checkbox" value="Mumbai"> Mumbai</label>
+                <label><input type="checkbox" value="Pune"> Pune</label>
+                <label><input type="checkbox" value="Bangalore"> Bangalore</label>
+                <label><input type="checkbox" value="Hyderabad"> Hyderabad</label>
+                <label><input type="checkbox" value="Noida"> Noida</label>
+            </div>
+        </div>
 
-        <h3 style="color: white; font-size:26px;">Job Title</h3>
-        <input type="checkbox" id="Web Developer">
-        <label for="Web Developer" style="color: white; font-size: 20px;">Web Developer</label><br>
-        <input type="checkbox" id="Software Developer">
-        <label for="Software Developer" style="color: white; font-size: 20px;">Software Developer</label><br>
-        <input type="checkbox" id="Java Developer">
-        <label for="Java Developer" style="color: white; font-size: 20px;">Java Developer</label><br>
-        <input type="checkbox" id="Data Analyst">
-        <label for="Data Analyst" style="color: white; font-size: 20px;">Data Analyst</label><br>
-        <input type="checkbox" id="UI/UX Designer">
-        <label for="UI/UX Designer" style="color: white; font-size: 20px;">UI/UX Designer</label><br>
-        <input type="checkbox" id="Cloud Engineer">
-        <label for="Cloud Engineer" style="color: white; font-size: 20px;">Cloud Engineer</label><br>
-        <input type="checkbox" id="Data Scientist">
-        <label for="Data Scientist" style="color: white; font-size: 20px;">Data Scientist</label><br>
-        <input type="checkbox" id="AI & ML Developer">
-        <label for="AI & ML Developer" style="color: white; font-size: 20px;">AI & ML Developer</label><br>
-        <input type="checkbox" id="Frontend Developer">
-        <label for="Frontend Developer" style="color: white; font-size: 20px;">Frontend Developer</label><br>
-        <input type="checkbox" id="Backend Developer">
-        <label for="Backend Developer" style="color: white; font-size: 20px;">Backend Developer</label><br>
-        <input type="checkbox" id="Full Stack Developer">
-        <label for="Full Stack Developer" style="color: white; font-size: 20px;">Full Stack Developer</label><br>
+        <div class="filter-item">
+            <button class="filter-btn">Job Title <i class="fas fa-chevron-down"></i></button>
+            <div class="filter-dropdown">
+                <label><input type="checkbox" value="Frontend Developer"> Frontend</label>
+                <label><input type="checkbox" value="Data Scientist"> Data Scientist</label>
+                <label><input type="checkbox" value="Cloud Engineer"> Cloud Engineer</label>
+                <label><input type="checkbox" value="Java Developer"> Java Developer</label>
+            </div>
+        </div>
 
-        <h3 style="color: white; font-size:26px;">Package Range</h3>
-        <input type="checkbox" id="2LPA - 5LPA">
-        <label for="2LPA - 5LPA" style="color: white; font-size: 20px;">2LPA - 5LPA</label><br>
-        <input type="checkbox" id="5LPA - 10LPA">
-        <label for="5LPA - 10LPA" style="color: white; font-size: 20px;">5LPA - 10LPA</label><br>
-        <input type="checkbox" id="10LPA - 15LPA">
-        <label for="10LPA - 15LPA" style="color: white; font-size: 20px;">10LPA - 15LPA</label><br>
-        <input type="checkbox" id="15LPA - 20LPA">
-        <label for="15LPA - 20LPA" style="color: white; font-size: 20px;">15LPA - 20LPA</label><br>
-        <input type="checkbox" id="20LPA - 35LPA">
-        <label for="20LPA - 35LPA" style="color: white; font-size: 20px;">20LPA - 35LPA</label><br>
+        <div class="filter-item">
+            <button class="filter-btn">Salary <i class="fas fa-chevron-down"></i></button>
+            <div class="filter-dropdown">
+                <label><input type="checkbox" value="5-10"> 5LPA - 10LPA</label>
+                <label><input type="checkbox" value="10-20"> 10LPA - 20LPA</label>
+                <label><input type="checkbox" value="20-35"> 20LPA - 35LPA</label>
+            </div>
+        </div>
 
-    </section>
+        <div class="filter-item">
+        <button class="filter-btn">Company <i class="fas fa-chevron-down"></i></button>
+        <div class="filter-dropdown">
+            <label><input type="checkbox" value="TCS"> TCS</label>
+            <label><input type="checkbox" value="Adobe"> Adobe</label>
+            <label><input type="checkbox" value="Google"> Google</label>
+            <label><input type="checkbox" value="Infosys"> Infosys</label>
+            <label><input type="checkbox" value="Zomato"> Zomato</label>
+          </div>
+        </div>
+
+        <div class="filter-item">
+        <button class="filter-btn">Job Type <i class="fas fa-chevron-down"></i></button>
+        <div class="filter-dropdown">
+            <label><input type="checkbox" value="remote"> Remote</label>
+            <label><input type="checkbox" value="On site"> On-site</label>
+          </div>
+        </div>
+
+        <button id="clear-filters">Clear All</button>
+    </div>
+</section>
+
     <section id="listing">
       <!-- Job-Card 1 -->
   <div class="job-card" id="top_pos">
@@ -645,59 +732,64 @@
 </div>
 
     <script>
-  document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
-    checkbox.addEventListener('change', filterJobs);
-  });
 
-  function filterJobs() {
-    const selectedLocations = getCheckedValues([
-      'Mumbai', 'Pune', 'Nagpur', 'Bangalore', 'Hyderabad', 'Thane', 'Noida'
-    ]);
-    const selectedTitles = getCheckedValues([
-      'Web Developer', 'Software Developer', 'Java Developer',
-      'Data Analyst', 'UI/UX Designer', 'Cloud Engineer',
-      'Data Scientist', 'AI & ML Developer', 'Frontend Developer',
-      'Backend Developer', 'Full Stack Developer'
-    ]);
-    const selectedPackages = getCheckedValues([
-      '2LPA - 5LPA', '5LPA - 10LPA', '10LPA - 15LPA',
-      '15LPA - 20LPA', '20LPA - 35LPA'
-    ]);
+      document.querySelectorAll('.filter-dropdown input').forEach(checkbox => {
+    checkbox.addEventListener('change', filterJobs);
+});
+
+
+function filterJobs() {
+    // 1. Get all selected values from the checkboxes
+    const selected = {
+        locations: Array.from(document.querySelectorAll('.filter-dropdown input[type="checkbox"]:checked'))
+            .filter(i => i.closest('.filter-item').textContent.includes('Location'))
+            .map(i => i.value),
+            
+        titles: Array.from(document.querySelectorAll('.filter-dropdown input[type="checkbox"]:checked'))
+            .filter(i => i.closest('.filter-item').textContent.includes('Job Title'))
+            .map(i => i.value),
+
+        // NEW: Job Type Logic
+        types: Array.from(document.querySelectorAll('.filter-dropdown input[type="checkbox"]:checked'))
+            .filter(i => i.closest('.filter-item').textContent.includes('Job Type'))
+            .map(i => i.value)
+    };
 
     const cards = document.querySelectorAll('.job-card');
+
     cards.forEach(card => {
-      const title = card.querySelector('h3').textContent.trim();
-      const location = card.querySelector('.job-info span:last-child').textContent.trim();
-      const salaryText = card.querySelector('.job-salary').textContent.trim();
-      const salary = parseFloat(salaryText);
+        const title = card.querySelector('h3').textContent.trim();
+        const location = card.querySelector('.job-info span:last-child').textContent.trim();
+        
+        // NEW: Grab the text from the badge (Remote or On site)
+        const jobType = card.querySelector('.badge').textContent.trim(); 
+        
+        const locMatch = selected.locations.length === 0 || selected.locations.includes(location);
+        const titleMatch = selected.titles.length === 0 || selected.titles.includes(title);
+        
+        // NEW: Check if the badge text matches the selected checkbox
+        const typeMatch = selected.types.length === 0 || selected.types.includes(jobType);
 
-      let locationMatch = selectedLocations.length === 0 || selectedLocations.includes(location);
-      let titleMatch = selectedTitles.length === 0 || selectedTitles.includes(title);
-      let packageMatch = selectedPackages.length === 0 || matchesPackageRange(salary, selectedPackages);
-
-      if (locationMatch && titleMatch && packageMatch) {
-        card.style.display = "flex";
-      } else {
-        card.style.display = "none";
-      }
+        // Update the display logic to include typeMatch
+        if (locMatch && titleMatch && typeMatch) {
+            card.style.display = "flex";
+        } else {
+            card.style.display = "none";
+        }
     });
-  }
+}
 
-  function getCheckedValues(ids) {
-    return ids.filter(id => document.getElementById(id)?.checked);
-  }
+// Clear Filters functionality
+document.getElementById('clear-filters').addEventListener('click', () => {
+    document.querySelectorAll('.filter-dropdown input').forEach(i => i.checked = false);
+    filterJobs();
+});
 
-  function matchesPackageRange(salary, ranges) {
-    return ranges.some(range => {
-      const [min, max] = range.split(' - ').map(p => parseFloat(p.replace('LPA', '')));
-      return salary >= min && salary <= max;
-    });
-  }
-</script>
+    </script>
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        const container = document.getElementById('dynamic-jobs-container');
+        const container = document.getElementById('listing');
         const storedJobs = JSON.parse(localStorage.getItem('portalJobs')) || [];
 
         storedJobs.forEach(job => {
