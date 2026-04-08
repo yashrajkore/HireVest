@@ -10,29 +10,26 @@ loginBtn.addEventListener('click', () => {
   container.classList.remove("active");
 });
 
-// Get form elements
 const registerForm = document.querySelector('.sign-up form');
 const loginForm = document.querySelector('.sign-in form');
 
-// Handle Register
-// Handle Register
+// Register
 registerForm.addEventListener('submit', async (e) => {
     e.preventDefault();
 
     const name = registerForm.querySelector('input[placeholder="Name"]').value;
     const email = registerForm.querySelector('input[placeholder="Email"]').value;
     const password = registerForm.querySelector('input[placeholder="Password"]').value;
-    const userType = registerForm.querySelector('#user-type').value; // 👈 Get the new user type value
+    const userType = registerForm.querySelector('#user-type').value;
 
     const res = await fetch('/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email, password, userType }) // 👈 Include the new value
+        body: JSON.stringify({ name, email, password, userType })
     });
 
     const data = await res.json();
     if (data.success) {
-        // 👈 Redirect based on user type
         if (userType === 'job_seeker') {
             window.location.href = 'home.html';
         } else if (userType === 'recruiter') {
@@ -43,7 +40,7 @@ registerForm.addEventListener('submit', async (e) => {
     }
 });
 
-// Handle Login
+// Login
 loginForm.addEventListener('submit', async (e) => {
   e.preventDefault();
 
@@ -57,14 +54,19 @@ loginForm.addEventListener('submit', async (e) => {
   });
 
   const data = await res.json();
+  
   if (data.success) {
-    window.location.href = 'home.html'; // 👈 redirect to homepage
+    if (data.userType === 'recruiter') {
+        window.location.href = 'recruiter_home.html';
+    } else {
+        window.location.href = 'home.html';
+    }
   } else {
     showError(data.message);
   }
 });
 
-// Show error function
+// Error function
 function showError(message) {
   const errorDiv = document.createElement('div');
   errorDiv.textContent = message;

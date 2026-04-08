@@ -1,0 +1,18 @@
+# Database
+users.db
+
+# Dependencies
+jobvista/node_modules/
+
+# Editor settings
+.vscode/
+
+# Secrets
+.env
+
+# User Uploads (keeps the folder, ignores the content)
+uploads/*
+!.gitkeep
+
+# System files
+.DS_Store

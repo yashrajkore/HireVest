@@ -38,7 +38,7 @@ app.post('/apply', upload.single('resume'), (req, res) => {
 
   const resumePath = req.file.path;
 
-  // Set up mail transport
+  // Mail transport Setting
   const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
@@ -98,25 +98,26 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Create SQLite DB
+// SQLite DB
 const db = new sqlite3.Database('./users.db', (err) => {
     if (err) return console.error(err.message);
     console.log("Connected to SQLite DB.");
 });
 
-// Create users table if not exists
+// Users Table
 db.run(`CREATE TABLE IF NOT EXISTS users (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT,
     email TEXT UNIQUE,
-    password TEXT
+    password TEXT,
+    user_type TEXT
 )`);
 
 // Register user
 app.post('/register', (req, res) => {
-    const { name, email, password } = req.body;
-    const sql = `INSERT INTO users (name, email, password) VALUES (?, ?, ?)`;
-    db.run(sql, [name, email, password], (err) => {
+    const { name, email, password, userType } = req.body;
+    const sql = `INSERT INTO users (name, email, password, user_type) VALUES (?, ?, ?, ?)`; 
+    db.run(sql, [name, email, password, userType], (err) => {
         if (err) {
             return res.status(400).json({ success: false, message: 'Email already exists!' });
         }
@@ -128,9 +129,17 @@ app.post('/register', (req, res) => {
 app.post('/login', (req, res) => {
     const { email, password } = req.body;
     const sql = `SELECT * FROM users WHERE email = ? AND password = ?`;
+    
     db.get(sql, [email, password], (err, row) => {
         if (err) return res.status(500).json({ success: false, message: 'Server error' });
-        if (row) return res.json({ success: true, message: 'Login successful!' });
+        
+        if (row) {
+            return res.json({ 
+                success: true, 
+                message: 'Login successful!',
+                userType: row.user_type 
+            });
+        }
         return res.status(401).json({ success: false, message: 'Invalid email or password' });
     });
 });

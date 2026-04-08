@@ -162,8 +162,7 @@ nav a:hover {
       animation: float 2s ease-in-out infinite;
       transition: background 0.3s;
     }
-
-    @keyframes float {
+  @keyframes float {
       0%, 100% {
         transform: translateY(0);
       }
@@ -172,10 +171,128 @@ nav a:hover {
       }
     }
 
-
     .chatbot-button:hover {
       background: #4169e1;
     }
+
+:root {
+    --primary-gradient: linear-gradient(135deg, #ff00e1, #0d00ff);
+    --bot-bg: #2a2a3e;
+    --user-bg: #0d00ff;
+    --chat-bg: #12121c; /* Matches your dark site theme */
+    --text-color: #ffffff;
+}
+
+.chat-container {
+    display: none; 
+    position: fixed;
+    bottom: 90px;
+    right: 25px;
+    width: 350px;
+    height: 500px;
+    background: var(--chat-bg);
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+    flex-direction: column;
+    overflow: hidden;
+    z-index: 9999;
+    font-family: 'Inter', -apple-system, sans-serif;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+}
+
+.chat-header {
+    background: var(--primary-gradient);
+    color: white;
+    padding: 20px;
+    font-weight: 700;
+    text-align: left;
+    font-size: 1.1rem;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.chat-body {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    background: var(--chat-bg);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    scrollbar-width: thin;
+    scrollbar-color: #333 transparent;
+}
+
+/* Custom Scrollbar for Chrome/Safari */
+.chat-body::-webkit-scrollbar { width: 5px; }
+.chat-body::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
+
+.bot-msg, .user-msg {
+    max-width: 80%;
+    padding: 12px 16px;
+    font-size: 14px;
+    line-height: 1.5;
+    animation: fadeIn 0.3s ease;
+}
+
+.bot-msg {
+    background: var(--bot-bg);
+    color: #e0e0e0;
+    border-radius: 15px 15px 15px 2px;
+    align-self: flex-start;
+}
+
+.user-msg {
+    background: var(--primary-gradient);
+    color: white;
+    border-radius: 15px 15px 2px 15px;
+    align-self: flex-end;
+    box-shadow: 0 4px 12px rgba(13, 0, 255, 0.3);
+}
+
+.chat-footer {
+    display: flex;
+    padding: 15px;
+    background: #1a1a2e;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    gap: 10px;
+}
+
+#chat-input {
+    flex: 1;
+    background: #2a2a3e;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 12px;
+    color: white;
+    outline: none;
+    transition: border 0.3s;
+}
+
+#chat-input:focus {
+    border-color: #ff00e1;
+}
+
+.chat-footer button {
+    background: var(--primary-gradient);
+    border: none;
+    color: white;
+    padding: 0 15px;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.chat-footer button:hover {
+    transform: scale(1.05);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
 
     /* Small Devices */
     @media (max-width: 768px) {
@@ -449,7 +566,7 @@ hr {
       <!-- Job Card 1 -->
     <div class="job-card">
     <div class="job-header">
-    <img src="logo1.png" alt="Company Logo">
+    <img src="images/logo1.png" alt="Company Logo">
     <div>
       <h3>Data Scientist</h3>
       <p>TCS</p>
@@ -516,7 +633,7 @@ function showStock(company, chartId) {
       <!-- Job Card 2 -->
       <div class="job-card">
         <div class="job-header">
-          <img src="logo2.png" alt="Company Logo">
+          <img src="images/logo2.png" alt="Company Logo">
           <div>
             <h3>Frontend Developer</h3>
             <p>Adobe</p>
@@ -543,7 +660,7 @@ function showStock(company, chartId) {
       <!-- Job Card 3 -->
       <div class="job-card">
         <div class="job-header">
-          <img src="logo3.png" alt="Company Logo">
+          <img src="images/logo3.png" alt="Company Logo">
           <div>
             <h3>Java Developer</h3>
             <p>Infosys</p>
@@ -565,7 +682,7 @@ function showStock(company, chartId) {
       <!--Job 4 card-->
       <div class="job-card">
         <div class="job-header">
-          <img src="logo4.png" alt="Company Logo">
+          <img src="images/logo4.png" alt="Company Logo">
           <div>
             <h3>Cloud Engineer</h3>
             <p>Google</p>
@@ -587,7 +704,7 @@ function showStock(company, chartId) {
       <!--job 5 card-->
       <div class="job-card">
         <div class="job-header">
-          <img src="logo5.png" alt="Company Logo">
+          <img src="images/logo5.png" alt="Company Logo">
           <div>
             <h3>Machine Learning Engineer</h3>
             <p>Microsoft</p>
@@ -610,7 +727,7 @@ function showStock(company, chartId) {
       <!--Job-6 card-->
       <div class="job-card">
         <div class="job-header">
-          <img src="logo6.jpg" alt="Company Logo">
+          <img src="images/logo6.jpg" alt="Company Logo">
           <div>
             <h3>Android Developer</h3>
             <p>Zomato</p>
@@ -670,7 +787,18 @@ function showStock(company, chartId) {
     </div>
   </footer>
 
-  <button class="chatbot-button">Ask AI ✨</button>
+<button class="chatbot-button" onclick="toggleChat()">Ask AI ✨</button>
+
+<div id="chat-window" class="chat-container">
+    <div class="chat-header">HireVest AI Assistant</div>
+    <div id="chat-body" class="chat-body">
+        <p class="bot-msg">Hello! I'm the HireVest bot. <b>How Can I Help You ?</b></p>
+    </div>
+    <div class="chat-footer">
+        <input type="text" id="chat-input" placeholder="Type a command..." onkeypress="handleEnter(event)">
+        <button onclick="processCommand()">Send</button>
+    </div>
+</div>
 
 <script>
     const userIcon = document.querySelector('.user-icon');
@@ -694,6 +822,54 @@ function showStock(company, chartId) {
         dropdown.style.display = 'none';
       }
     });
+
+//Chatbot logic 
+
+function toggleChat() {
+    const chat = document.getElementById('chat-window');
+    chat.style.display = chat.style.display === 'flex' ? 'none' : 'flex';
+}
+
+function handleEnter(event) {
+    if (event.key === 'Enter') processCommand();
+}
+
+function processCommand() {
+    const input = document.getElementById('chat-input');
+    const body = document.getElementById('chat-body');
+    const text = input.value.toLowerCase().trim();
+
+    if (!text) return;
+
+    body.innerHTML += `<div class="user-msg">${input.value}</div>`;
+    input.value = "";
+
+    // AI Logic (Keyword Matching)
+    setTimeout(() => {
+        let response = "I'm not sure about that.";
+        
+        if (text.includes("job") || text.includes("work") || text.includes("jobs") || text.includes("openings") || text.includes("vacancies") || text.includes("positions") || text.includes("career") || text.includes("opportunities") || text.includes("hiring") || text.includes("recruitment") || text.includes("employment") || text.includes("job board") || text.includes("job listings") || text.includes("job opportunities") || text.includes("job openings")) {
+            response = "Sure! Redirecting you to our Job Board...";
+            setTimeout(() => window.location.href = "homejobs.html", 1500); // Redirects to job board page
+        } 
+        else if (text.includes("home") || text.includes("main") || text.includes("homepage") || text.includes("start") || text.includes("welcome") || text.includes("landing")) {
+            response = "Heading back to the homepage...";
+            setTimeout(() => window.location.href = "home.html", 1500);
+        }
+        else if (text.includes("login") || text.includes("sign in") || text.includes("register") || text.includes("sign up") || text.includes("account")) {
+            response = "Let's look at the joining section...";
+            setTimeout(() => window.location.href = "signup.html", 1500); // Redirects to signup page
+        }
+        else if(text.includes("share price") || text.includes("stock price") || text.includes("current price") || text.includes("price of shares") || text.includes("stock market price") || text.includes("share value") || text.includes("current stock price") || text.includes("latest share price") || text.includes("stock value") || text.includes("share price today") || text.includes("share market") || text.includes("current share price") || text.includes("current stock value") || text.includes("latest stock price") || text.includes("latest share value") || text.includes("stock price now") || text.includes("share price now")) {
+            response = "Let me fetch the page where you can access share prices...";
+            setTimeout(() => window.location.href = "homejobs.html", 1500); // Redirects to share price page
+        }
+
+        body.innerHTML += `<div class="bot-msg">${response}</div>`;
+        body.scrollTop = body.scrollHeight; // Scroll to bottom
+    }, 600);
+}
+
   </script>
   
 
