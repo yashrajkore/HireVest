@@ -11,8 +11,17 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
+
   <header>
-    <div class="logo">Hire<span>Vest</span></div>
+  <div class="logo">Hire<span>Vest</span></div>
+
+  <div class="hamburger" id="hamburger">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+
+  <div class="nav-container" id="nav-menu">
     <nav>
       <a href="#" id="starter">Home</a>
       <a href="#jobs">Jobs</a>
@@ -20,7 +29,9 @@
     </nav>
     <div class="auth-buttons">
       <a href="signUp.html"><button class="login-btn">Join Now!</button></a>
-  </header>
+    </div>
+  </div>
+</header>
 
   <section class="hero">
     <h1>Get To Know The Industry With HireVest</h1>
@@ -262,17 +273,35 @@
     </div>
   </footer>
 
-  <button class="chatbot-button" onclick="window.location.href='signUp.html'">Ask AI ✨</button>
+<button class="chatbot-button" onclick="toggleChat()">Ask AI ✨</button>
 
 <div id="chat-window" class="chat-container">
     <div class="chat-header">HireVest AI Assistant</div>
     <div id="chat-body" class="chat-body">
-        <p class="bot-msg">Hello! I'm the HireVest bot. Try typing <b>"jobs"</b> or <b>"home"</b>.</p>
+        <p class="bot-msg">Hello! I'm the HireVest bot. <b>How Can I Help You ?</b></p>
     </div>
     <div class="chat-footer">
         <input type="text" id="chat-input" placeholder="Type a command..." onkeypress="handleEnter(event)">
         <button onclick="processCommand()">Send</button>
     </div>
 </div>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const hamburger = document.getElementById('hamburger');
+    const navMenu = document.getElementById('nav-menu');
+
+    if (hamburger && navMenu) {
+      hamburger.addEventListener('click', () => {
+        navMenu.classList.toggle('active');
+        console.log("Menu toggled!"); // This will show in Inspect > Console
+      });
+    } else {
+      console.error("Could not find hamburger or nav-menu IDs in the HTML.");
+    }
+  });
+</script>
+
 </body>
 </html>

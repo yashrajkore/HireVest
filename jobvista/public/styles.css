@@ -13,17 +13,22 @@ header {
   top: 0;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 30px;
+  padding: 15px 30px;
   background: #03040c;
+  z-index: 1000;
+  width: 100%;
+  box-sizing: border-box;
 }
-.logo {
-  font-size: 30px;
-  font-weight: bold;
-  color: white;
+
+.nav-container {
+  display: flex;
+  align-items: center;
 }
-.logo span {
-  color: #6495ed;
-}
+
+/* Your original styles */
+.logo { font-size: 30px; font-weight: bold; color: white; display: flexbox; }
+.logo span { color: #6495ed; }
+
 nav a {
   color: white;
   text-decoration: none;
@@ -31,25 +36,76 @@ nav a {
   font-size: 18px;
   font-weight: 600;
 }
-nav a:hover {
-  color: #6495ed;
-}
+nav a:hover{color: #00b3ff;}
+
 .login-btn {
   background: linear-gradient(to right, #bb29f9, #0e02ff);
   height: 3.4rem;
-  text-decoration: none;
   width: 10rem;
   border-radius: 10px;
+  border: none;
   font-size: 18px;
   font-weight: 800;
-  transition: transform 0.3s ease-in-out;
-  text-decoration: none;
   color: white;
+  cursor: pointer;
+  transition: transform 0.3s;
 }
-.login-btn:hover{
-  background: linear-gradient(to left, #bb29f9, #0e02ff);
-  transform: scale(1.1);
+
+/* Hamburger Styles */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  gap: 5px;
 }
+
+.hamburger span {
+  width: 30px;
+  height: 3px;
+  background: white;
+  transition: 0.3s;
+}
+
+/* Mobile Responsive Logic */
+@media (max-width: 768px) {
+  .hamburger {
+    display: flex;
+    order: 2;
+  }
+  .logo{
+    order : 1;
+  }
+
+  .nav-container {
+    display: none; /* Hide menu by default on mobile */
+    flex-direction: column;
+    position: absolute;
+    top: 100%; /* Sits right below the header */
+    left: 0;
+    width: 100%;
+    background: #03040c;
+    padding: 20px 0;
+    text-align: center;
+    border-top: 1px solid #1a1a2e;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+    z-index: 999;
+  }
+
+  .nav-container.active {
+    display: flex !important; /* Forces it to show when JS clicks it */
+  }
+
+  nav {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+  }
+
+  nav a {
+    margin: 15px 0;
+  }
+}
+
 .hero {
   flex: 1;
   display: flex;
@@ -156,8 +212,9 @@ form {
 
 
     /* Vista AI Chatbot Button (bottom right) */
-    .chatbot-button {
-        position: fixed;
+
+        .chatbot-button {
+      position: fixed;
       bottom: 20px;
       right: 20px;
       background: linear-gradient(to right, #ff00e1, #0d00ff);
@@ -176,54 +233,6 @@ form {
       transition: background 0.3s;
     }
 
-    .chat-container {
-    display: none; /* Hidden until button is clicked */
-    position: fixed;
-    bottom: 80px;
-    right: 20px;
-    width: 320px;
-    height: 400px;
-    background: white;
-    border-radius: 15px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-    flex-direction: column;
-    overflow: hidden;
-    z-index: 9999;
-    font-family: sans-serif;
-}
-
-.chat-header {
-    background: linear-gradient(to right, #ff00e1, #0d00ff);
-    color: white;
-    padding: 15px;
-    font-weight: bold;
-    text-align: center;
-}
-
-.chat-body {
-    flex: 1;
-    padding: 15px;
-    overflow-y: auto;
-    background: #f9f9f9;
-}
-
-.chat-footer {
-    display: flex;
-    padding: 10px;
-    border-top: 1px solid #eee;
-}
-
-#chat-input {
-    flex: 1;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    padding: 8px;
-    outline: none;
-}
-
-.bot-msg { background: #e0e0e0; color: black; padding: 8px; border-radius: 10px; margin-bottom: 10px; font-size: 14px; }
-.user-msg { background: #0d00ff; color: white; padding: 8px; border-radius: 10px; margin-bottom: 10px; text-align: right; font-size: 14px; }
-
     @keyframes float {
       0%, 100% {
         transform: translateY(0);
@@ -237,6 +246,126 @@ form {
     .chatbot-button:hover {
       background: #4169e1;
     }
+
+    :root {
+    --primary-gradient: linear-gradient(135deg, #ff00e1, #0d00ff);
+    --bot-bg: #2a2a3e;
+    --user-bg: #0d00ff;
+    --chat-bg: #12121c; /* Matches your dark site theme */
+    --text-color: #ffffff;
+}
+
+.chat-container {
+    display: none; 
+    position: fixed;
+    bottom: 90px;
+    right: 25px;
+    width: 350px;
+    height: 500px;
+    background: var(--chat-bg);
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+    flex-direction: column;
+    overflow: hidden;
+    z-index: 9999;
+    font-family: 'Inter', -apple-system, sans-serif;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+}
+
+.chat-header {
+    background: var(--primary-gradient);
+    color: white;
+    padding: 20px;
+    font-weight: 700;
+    text-align: left;
+    font-size: 1.1rem;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.chat-body {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    background: var(--chat-bg);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    scrollbar-width: thin;
+    scrollbar-color: #333 transparent;
+}
+
+/* Custom Scrollbar for Chrome/Safari */
+.chat-body::-webkit-scrollbar { width: 5px; }
+.chat-body::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
+
+.bot-msg, .user-msg {
+    max-width: 80%;
+    padding: 12px 16px;
+    font-size: 14px;
+    line-height: 1.5;
+    animation: fadeIn 0.3s ease;
+}
+
+.bot-msg {
+    background: var(--bot-bg);
+    color: #e0e0e0;
+    border-radius: 15px 15px 15px 2px;
+    align-self: flex-start;
+}
+
+.user-msg {
+    background: var(--primary-gradient);
+    color: white;
+    border-radius: 15px 15px 2px 15px;
+    align-self: flex-end;
+    box-shadow: 0 4px 12px rgba(13, 0, 255, 0.3);
+}
+
+.chat-footer {
+    display: flex;
+    padding: 15px;
+    background: #1a1a2e;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    gap: 10px;
+}
+
+#chat-input {
+    flex: 1;
+    background: #2a2a3e;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 12px;
+    color: white;
+    outline: none;
+    transition: border 0.3s;
+}
+
+#chat-input:focus {
+    border-color: #ff00e1;
+}
+
+.chat-footer button {
+    background: var(--primary-gradient);
+    border: none;
+    color: white;
+    padding: 0 15px;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.chat-footer button:hover {
+    transform: scale(1.05);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
 
     /* Small Devices */
     @media (max-width: 768px) {

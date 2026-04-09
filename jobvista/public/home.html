@@ -589,44 +589,6 @@ hr {
     </div>
   </div>
 </div>
-
-<script>
-function showStock(company, chartId) {
-  const container = document.getElementById(chartId);
-  container.style.display = container.style.display === "none" ? "block" : "none";
-
-  const ctx = container.querySelector("canvas");
-
-  // Example mock stock data (replace with real API later)
-  const data = {
-    labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
-    datasets: [{
-      label: company + " Stock Price",
-      data: [3450, 3480, 3475, 3500, 3520, 3540, 3600], // Example stock prices
-      borderColor: "#8b5cf6",
-      backgroundColor: "rgba(139, 92, 246, 0.2)",
-      fill: true,
-      tension: 0.3
-    }]
-  };
-
-  new Chart(ctx, {
-    type: "line",
-    data: data,
-    options: {
-      responsive: true,
-      plugins: {
-        legend: { labels: { color: "#f1f5f9" } }
-      },
-      scales: {
-        x: { ticks: { color: "#94a3b8" } },
-        y: { ticks: { color: "#94a3b8" } }
-      }
-    }
-  });
-}
-</script>
-
       <!-- Job Card 2 -->
       <div class="job-card">
         <div class="job-header">

@@ -6,10 +6,22 @@
     <title>Find Jobs</title>
     <script src="https://kit.fontawesome.com/b3878f124d.js" crossorigin="anonymous"></script>
     <style>
-        body{
-            background-color: #03040c;
+      :root {
+            --primary-gradient: linear-gradient(135deg, #ff00e1, #0d00ff);
+            --bg-dark: #03040c;
+            --card-bg: #090c1e;
+            --input-bg: #0f172a;
+            --border-color: #334155;
+            --text-main: #f1f5f9;
+            --text-dim: #94a3b8;
+            --accent-blue: #6495ed;
+        }
+        body {
+            background-color: var(--bg-dark);
             margin: 0;
             font-family: 'Poppins', sans-serif;
+            color: var(--text-main);
+            overflow-x: hidden;
         }
       .job-card {
         background: #090c1e;
@@ -214,48 +226,86 @@
     max-width: 800px; /* Slimmer cards look more modern */
 }
 
-    #top_pos{
-        margin-top: 120px;
-    }
-    nav{
-        position: sticky; /* Make it stick */
-        top: 0;          /* At the very top */
-        z-index: 1001;   /* Higher than filter-bar (which is 100) */
-        width: 100%;     /* Changed from auto to 100% to span the screen */
-        height: 4.0rem;
-        background: #03040c;
-        display: flex;   /* Recommended: helps keep items aligned while sticky */
-        align-items: center;
-        padding-left: 50px;
-        box-sizing: border-box;
-        #strtr{
-            margin-left: 52rem;
+                header {
+            display: flex;
+            position: sticky;
+            top: 0;
+            align-items: center;
+            padding: 10px 40px;
+            background: var(--bg-dark);
+            width: 100%;
+            z-index: 1001;
+            box-sizing: border-box;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
-        a{
-            text-decoration: none;
+
+        .logo-area {
+            flex: 1;
+            display: flex;
+            justify-content: flex-start;
+        }
+
+        .logo { font-size: 28px; font-weight: bold; color: white; }
+        .logo span { color: var(--accent-blue); }
+
+        .search-wrapper {
+            flex: 2; 
+            display: flex;
+            justify-content: center;
+        }
+
+        .search-container {
+            width: 100%;
+            max-width: 700px; /* Wider input space as requested */
+            position: relative;
+        }
+
+        .search-container input {
+            width: 100%;
+            padding: 12px 15px 12px 45px;
+            border-radius: 30px;
+            border: 1px solid var(--border-color);
+            background: var(--input-bg);
             color: white;
-            font-weight: 600;
-            font-size: 18px;
-            margin-right: 35px;
+            font-size: 15px;
+            outline: none;
+            transition: all 0.3s ease;
         }
-        a:hover{
-          color: blue;
+
+        .search-container input:focus {
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 15px rgba(100, 149, 237, 0.2);
         }
-        .login_btn{
-            background: linear-gradient(to right, #bb29f9, #0e02ff);
-            height: 3.3rem;
-            text-decoration: none;
+
+        .search-container i {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-dim);
+        }
+
+        .nav-container {
+            flex: 1;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .login-btn {
+            background: var(--primary-gradient);
+            height: 3rem;
             width: 9rem;
             border-radius: 10px;
-            font-size: 18px;
+            border: none;
+            font-size: 16px;
             font-weight: 800;
-            transition: transform 0.3s ease-in-out;
-            text-decoration: none;
             color: white;
+            cursor: pointer;
+            transition: transform 0.3s;
         }
-    }
 
-      /* Modal Styles */
+        .login-btn:hover { transform: scale(1.05); }
+
 .modal {
   display: none; 
   position: fixed;
@@ -450,15 +500,24 @@
     </style>
 </head>
 <body>
-    <nav>
-        <span style="font-size: 30px; font-weight: bold;color: white;">Hire</span><span style="color: #6495ed; font-size: 30px; font-weight: bold;">Vest</span>
+    <header>
+        <div class="logo-area">
+            <div class="logo">Hire<span>Vest</span></div>
+        </div>
 
-        <a href="index.html" id="strtr">Home</a>
-        <a href="#">Jobs</a>
-        <a href="#">Contact</a>
+        <div class="search-wrapper">
+            <div class="search-container">
+                <i class="fas fa-search"></i>
+                <input type="text" id="job-search" placeholder="Search by job title or company..." onkeyup="filterJobs()">
+            </div>
+        </div>
 
-        <button class="login_btn">Join Now!</button>
-    </nav>
+        <div class="nav-container">
+            <div class="auth-buttons">
+                <a href="signUp.html"><button class="login-btn">Join Now!</button></a>
+            </div>
+        </div>
+    </header>
     
     <section id="filter-bar">
     <div class="filter-container">
@@ -700,7 +759,10 @@
 
 
 function filterJobs() {
-    // 1. Get all selected values from the checkboxes
+    // 1. Get the search bar value
+    const searchText = document.getElementById('job-search').value.toLowerCase();
+
+    // 2. Get all selected values from the checkboxes (using your existing logic)
     const selected = {
         locations: Array.from(document.querySelectorAll('.filter-dropdown input[type="checkbox"]:checked'))
             .filter(i => i.closest('.filter-item').textContent.includes('Location'))
@@ -710,29 +772,36 @@ function filterJobs() {
             .filter(i => i.closest('.filter-item').textContent.includes('Job Title'))
             .map(i => i.value),
 
-        // NEW: Job Type Logic
         types: Array.from(document.querySelectorAll('.filter-dropdown input[type="checkbox"]:checked'))
             .filter(i => i.closest('.filter-item').textContent.includes('Job Type'))
+            .map(i => i.value),
+
+        companies: Array.from(document.querySelectorAll('.filter-dropdown input[type="checkbox"]:checked'))
+            .filter(i => i.closest('.filter-item').textContent.includes('Company'))
             .map(i => i.value)
     };
 
     const cards = document.querySelectorAll('.job-card');
 
     cards.forEach(card => {
+        // Target elements correctly based on your HTML structure
         const title = card.querySelector('h3').textContent.trim();
+        const company = card.querySelector('.job-header p').textContent.trim();
         const location = card.querySelector('.job-info span:last-child').textContent.trim();
-        
-        // NEW: Grab the text from the badge (Remote or On site)
         const jobType = card.querySelector('.badge').textContent.trim(); 
         
+        // Logic: Check if card matches search text (Title or Company)
+        const matchesSearch = title.toLowerCase().includes(searchText) || 
+                              company.toLowerCase().includes(searchText);
+
+        // Logic: Check if card matches checkboxes
         const locMatch = selected.locations.length === 0 || selected.locations.includes(location);
         const titleMatch = selected.titles.length === 0 || selected.titles.includes(title);
-        
-        // NEW: Check if the badge text matches the selected checkbox
         const typeMatch = selected.types.length === 0 || selected.types.includes(jobType);
+        const compMatch = selected.companies.length === 0 || selected.companies.includes(company);
 
-        // Update the display logic to include typeMatch
-        if (locMatch && titleMatch && typeMatch) {
+        // Final Decision: Only show if EVERYTHING matches
+        if (matchesSearch && locMatch && titleMatch && typeMatch && compMatch) {
             card.style.display = "flex";
         } else {
             card.style.display = "none";
@@ -746,8 +815,7 @@ document.getElementById('clear-filters').addEventListener('click', () => {
     filterJobs();
 });
 
-    </script>
-
+</script>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const container = document.getElementById('listing');

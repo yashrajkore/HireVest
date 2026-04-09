@@ -23,11 +23,11 @@ function processCommand() {
         
         if (text.includes("job") || text.includes("work") || text.includes("jobs") || text.includes("openings") || text.includes("vacancies") || text.includes("positions") || text.includes("career") || text.includes("opportunities") || text.includes("hiring") || text.includes("recruitment") || text.includes("employment") || text.includes("job board") || text.includes("job listings") || text.includes("job opportunities") || text.includes("job openings")) {
             response = "Sure! Redirecting you to our Job Board...";
-            setTimeout(() => window.location.href = "homejobs.html", 1500); // Redirects to job board page
+            setTimeout(() => window.location.href = "findJobs.html", 1500); // Redirects to job board page
         } 
         else if (text.includes("home") || text.includes("main") || text.includes("homepage") || text.includes("start") || text.includes("welcome") || text.includes("landing")) {
             response = "Heading back to the homepage...";
-            setTimeout(() => window.location.href = "home.html", 1500);
+            setTimeout(() => window.location.href = "index.html", 1500);
         }
         else if (text.includes("login") || text.includes("sign in") || text.includes("register") || text.includes("sign up") || text.includes("account")) {
             response = "Let's look at the joining section...";
@@ -35,7 +35,7 @@ function processCommand() {
         }
         else if(text.includes("share price") || text.includes("stock price") || text.includes("current price") || text.includes("price of shares") || text.includes("stock market price") || text.includes("share value") || text.includes("current stock price") || text.includes("latest share price") || text.includes("stock value") || text.includes("share price today") || text.includes("share market") || text.includes("current share price") || text.includes("current stock value") || text.includes("latest stock price") || text.includes("latest share value") || text.includes("stock price now") || text.includes("share price now")) {
             response = "Let me fetch the page where you can access share prices...";
-            setTimeout(() => window.location.href = "homejobs.html", 1500); // Redirects to share price page
+            setTimeout(() => window.location.href = "findJobs.html", 1500); // Redirects to share price page
         }
 
         body.innerHTML += `<div class="bot-msg">${response}</div>`;
