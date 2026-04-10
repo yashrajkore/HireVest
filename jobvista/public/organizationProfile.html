@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HireVest | Organization Profile</title>
+    <script src="https://kit.fontawesome.com/b3878f124d.js" crossorigin="anonymous"></script>
+    <style>
+        :root {
+    --bg-deep: #05050a;
+    --bg-card: #12121c;
+    --text-main: #ffffff;
+    --text-dim: #b0b0b0;
+    --primary-gradient: linear-gradient(135deg, #ff00e1, #0d00ff);
+    --border-glow: rgba(255, 255, 255, 0.08);
+}
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--bg-deep);
+    color: var(--text-main);
+}
+
+header {
+  display: flex;
+  position: sticky;
+  top: 0;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 30px;
+  background: #03040c;
+  z-index: 1000;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.nav-container {
+  display: flex;
+  align-items: center;
+}
+
+/* Your original styles */
+.logo { font-size: 30px; font-weight: bold; color: white; display: flexbox; }
+.logo span { color: #6495ed; }
+
+.main-wrapper {
+    max-width: 1128px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Header & Banner Styles */
+.company-header {
+    background: var(--bg-card);
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--border-glow);
+    margin-bottom: 20px;
+}
+
+.cover-photo img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.header-content {
+    padding: 0 24px 24px 24px;
+    position: relative;
+    display: flex;
+}
+
+.logo-container {
+    position: relative;
+    margin-top: -60px; /* Overlap effect */
+    background: var(--bg-card);
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid var(--border-glow);
+}
+
+.org-logo {
+    width: 190px;
+    height: 190px;
+    border-radius: 4px;
+}
+
+.header-info {
+    margin-left: 20px;
+    margin-top: 15px;
+}
+
+.header-info h1 {
+    margin: 0;
+    font-size: 24px;
+}
+
+.verified-badge {
+    color: #00a2ff;
+    font-size: 18px;
+}
+
+.tagline {
+    color: var(--text-dim);
+    margin: 5px 0;
+}
+
+.status {
+    font-size: 14px;
+    color: var(--text-dim);
+}
+
+/* Buttons */
+.action-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.btn-primary {
+    background: var(--primary-gradient);
+    border: none;
+    color: white;
+    padding: 8px 20px;
+    border-radius: 20px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.btn-secondary {
+    background: transparent;
+    border: 1px solid #0d00ff;
+    color: #0d00ff;
+    padding: 8px 20px;
+    border-radius: 20px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.btn-secondary:hover{
+    background-color: rgb(40, 40, 66);
+}
+
+/* Tabs */
+.org-tabs {
+    display: flex;
+    border-top: 1px solid var(--border-glow);
+    padding: 0 20px;
+}
+
+.tab {
+    padding: 15px 20px;
+    color: var(--text-dim);
+    text-decoration: none;
+    font-weight: bold;
+    border-bottom: 3px solid transparent;
+}
+
+.tab.active {
+    color: #00e1ff;
+    border-bottom-color: #00e1ff;
+}
+
+/* Grid Layout */
+.content-grid {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 20px;
+}
+
+.card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-glow);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.sidebar h3 {
+    margin-top: 0;
+    font-size: 16px;
+}
+
+.see-all {
+    color: #0d00ff;
+    text-decoration: none;
+    font-weight: bold;
+    display: block;
+    margin-top: 10px;
+}
+
+/* Post Cards */
+.post-header {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 15px;
+}
+
+.post-header img {
+    border-radius: 4px;
+}
+
+.post-header h4 {
+    margin: 0;
+    font-size: 15px;
+}
+
+.post-header span {
+    display: block;
+    font-size: 12px;
+    color: var(--text-dim);
+}
+
+.post-img {
+    width: 100%;
+    border-radius: 8px;
+    margin-top: 10px;
+}
+
+.filter-btn {
+    background: #2a2a3e;
+    border: none;
+    color: white;
+    padding: 6px 15px;
+    border-radius: 15px;
+    margin-right: 5px;
+    cursor: pointer;
+}
+
+.filter-btn.active {
+    background: #0d00ff;
+}
+/* Content Section Transitions */
+.tab-section {
+    display: none;
+    animation: slideUp 0.4s ease-out;
+}
+
+.tab-section.active {
+    display: block;
+}
+
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Tab Indicator Logic */
+.org-tabs {
+    position: relative;
+    display: flex;
+    border-top: 1px solid var(--border-glow);
+}
+
+.active-indicator {
+    position: absolute;
+    bottom: 0;
+    height: 3px;
+    background: #00e1ff;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.tab {
+    position: relative;
+    z-index: 2;
+    padding: 15px 25px;
+    transition: color 0.3s;
+}
+
+.tab.active {
+    color: #00e1ff;
+}
+
+/* Follow Button States */
+.btn-primary.following {
+    background: transparent;
+    border: 1px solid #b0b0b0;
+    color: #b0b0b0;
+}
+
+      .job-card {
+        background: #090c1e;
+        border-radius: 10px;
+        padding: 20px;
+        color: #f1f5f9;
+        display: flex;
+        margin-top: 52px;
+        height: 200px;
+        width: 1000px;
+        flex-direction: column;
+        justify-content: space-between;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        transition: transform 0.3s ease-in-out;
+      }
+      
+      .job-card:hover {
+        transform: scale(1.03);
+      }
+      
+      .job-header {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+      }
+      
+      .job-header img {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: #fff;
+        object-fit: cover;
+      }
+      
+      .job-header h3 {
+        margin: 0;
+        font-size: 1.2rem;
+        font-weight: 600;
+      }
+      
+      .job-header p {
+        margin: 0;
+        font-size: 0.9rem;
+        color: #94a3b8;
+      }
+      
+      .job-info {
+        margin-top: 15px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      
+      .badge {
+        background-color: #64748b;
+        padding: 5px 12px;
+        border-radius: 20px;
+        font-size: 0.75rem;
+        text-transform: uppercase;
+      }
+      
+      .onsite {
+        background-color: #22c55e;
+      }
+      
+      .job-salary {
+        margin-top: 10px;
+        font-weight: bold;
+        font-size: 1.1rem;
+      }
+      
+      .job-positions {
+        font-size: 0.9rem;
+        margin-top: 5px;
+        color: #94a3b8;
+      }
+      
+      .job-details-link {
+        margin-top: 20px;
+      }
+      
+      .job-details-link a {
+        color: #8b5cf6;
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 0.9rem;
+      }
+      
+      .job-details-link a:hover {
+        text-decoration: underline;
+      }
+
+      .job-footer {
+        margin-top: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      /* Sentiment Bar */
+    .sentiment-bar-wrapper {
+        margin: 20px 0;
+    }
+    .sentiment-labels {
+        display: flex;
+        justify-content: space-between;
+        font-size: 12px;
+        color: var(--text-dim);
+        margin-bottom: 8px;
+    }
+    .sentiment-track {
+        height: 12px;
+        background: #2a2a3e;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+    .sentiment-fill {
+        height: 100%;
+        background: linear-gradient(to right, #ff4d4d, #ffd43b, #4ade80);
+        transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 0 0 15px rgba(74, 222, 128, 0.4);
+    }
+    .sentiment-meta {
+        font-size: 13px;
+        color: var(--text-dim);
+        text-align: center;
+    }
+
+    /* Sliding Review Cards */
+/* Remove the @keyframes scrollReviews animation entirely */
+
+.review-slider-wrapper {
+    overflow-x: auto; /* Enables horizontal scrolling */
+    padding: 20px 0;
+    margin: 20px 0;
+    cursor: grab; /* Visual cue that it's draggable/scrollable */
+    scrollbar-width: thin; /* Firefox */
+    scrollbar-color: #00e1ff #12121c; /* Firefox */
+}
+
+/* Custom Scrollbar for Chrome/Safari/Edge */
+.review-slider-wrapper::-webkit-scrollbar {
+    height: 6px;
+}
+.review-slider-wrapper::-webkit-scrollbar-track {
+    background: #12121c;
+    border-radius: 10px;
+}
+.review-slider-wrapper::-webkit-scrollbar-thumb {
+    background: linear-gradient(to right, #ff00e1, #0d00ff);
+    border-radius: 10px;
+}
+
+.review-track {
+    display: flex;
+    gap: 20px;
+    padding-bottom: 10px;
+    width: max-content; /* Ensures track expands with content */
+}
+
+.review-card {
+    min-width: 320px; /* Consistent card size */
+    max-width: 320px;
+    background: #1a1a2e;
+    padding: 25px;
+    border-radius: 18px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    flex-shrink: 0; /* Prevents cards from squishing */
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.review-card:hover {
+    border-color: rgba(255, 0, 225, 0.3);
+    transform: translateY(-5px);
+}
+
+    /* Modal Styling */
+    .modal-overlay {
+        display: none;
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: rgba(0,0,0,0.85);
+        backdrop-filter: blur(5px);
+        z-index: 10000;
+        justify-content: center;
+        align-items: center;
+    }
+    .modal-content {
+        max-width: 400px;
+        text-align: center;
+    }
+    #emp-email {
+        width: 90%;
+        padding: 12px;
+        margin: 20px 0;
+        border-radius: 8px;
+        border: 1px solid #333;
+        background: #05050a;
+        color: white;
+    }
+    .modal-btns {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+    }
+
+/* Container Styling */
+#review-form-container {
+    background: #12121c; /* Matches your card theme */
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    padding: 30px;
+    margin-top: 25px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    animation: slideUp 0.5s ease;
+}
+
+#review-form-container h3 {
+    font-size: 1.4rem;
+    margin-bottom: 25px;
+    font-weight: 700;
+}
+
+/* Group & Label Styling */
+.form-group {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-group label {
+    font-size: 0.9rem;
+    color: #b0b0b0;
+    font-weight: 500;
+    margin-left: 5px;
+}
+
+/* Input, Select, and Textarea Styling */
+#review-rating, 
+#review-role, 
+#review-text {
+    background: #1a1a2e;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 12px 15px;
+    color: #fff;
+    font-family: inherit;
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+#review-rating {
+    cursor: pointer;
+    appearance: none; /* Custom arrow look */
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 15px center;
+    background-size: 15px;
+}
+
+#review-text {
+    resize: none;
+    min-height: 120px;
+}
+
+/* Hover & Focus States */
+#review-rating:focus, 
+#review-role:focus, 
+#review-text:focus {
+    border-color: #ff00e1;
+    background: #202035;
+    box-shadow: 0 0 10px rgba(255, 0, 225, 0.1);
+}
+
+/* Submit Button Override */
+#review-form-container .btn-primary {
+    width: 100%;
+    padding: 14px;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 10px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(13, 0, 255, 0.3);
+}
+
+#review-form-container .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 0, 225, 0.4);
+}
+
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+</style>
+</head>
+<body class="dark-theme">
+
+      <header>
+        <div class="logo">Hire<span>Vest</span></div>
+
+        <div class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        </header>
+    
+    <div class="main-wrapper">
+        <section class="company-header">
+            <div class="cover-photo">
+                <img src="images/Connect with developer.png" alt="Cover">
+            </div>
+            <div class="header-content">
+                <div class="logo-container">
+                    <img src="images/logo4.png" alt="Google Logo" class="org-logo">
+                </div>
+                <div class="header-info">
+                    <h1>Google <span class="verified-badge">✔</span></h1>
+                    <p class="tagline">Software Development • Mountain View, CA • 41M followers</p>
+                    <p class="status">Ranked on <strong>HireVest Top Companies</strong></p>
+                    <div class="action-buttons">
+                        <button id="follow-btn" class="btn-primary" onclick="toggleFollow()">Follow</button>
+                        <a href="https://www.google.com/"><button class="btn-secondary">Visit website ↗</button></a>
+                    </div>
+                </div>
+            </div>
+            <nav class="org-tabs">
+                <div id="tab-indicator" class="active-indicator"></div>
+                <a href="javascript:void(0)" class="tab active" onclick="switchTab(event, 'home')">Home</a>
+                <a href="javascript:void(0)" class="tab" onclick="switchTab(event, 'about')">About</a>
+                <a href="javascript:void(0)" class="tab" onclick="switchTab(event, 'jobs')">Jobs</a>
+                <a href="javascript:void(0)" class="tab" onclick="switchTab(event, 'reviews')">Reviews</a>
+            </nav>
+        </section>
+
+        <div class="tab-content-wrapper">
+            <div id="home" class="tab-section active">
+                <div class="card">
+                <main class="content-grid">
+                    <aside class="sidebar">
+                        <div class="card about-card">
+                            <h3>About</h3>
+                            <p>Google’s mission is to organize the world’s information and make it universally accessible and useful...</p>
+                        </div>
+                        <div class="card ads-card">
+                            <h3>Active Jobs</h3>
+                            <p>See a collection of active or past jobs posted by Google.</p>
+                        </div>
+                    </aside>
+
+                    <!-- Home Section -->
+                    <section class="feed">
+                        <div class="card post-card">
+                            <div class="post-header">
+                                <img src="images/logo4.png" alt="Logo">
+                                <div>
+                                    <h4>Google</h4>
+                                    <span>41,343,964 followers</span>
+                                    <span>18h • 🌐</span>
+                                </div>
+                            </div>
+                            <div class="post-body">
+                                <p>A problem isn't truly solved until it's solved for all. Googlers build products that help create opportunities for everyone, whether down the street or across the globe. Bring your insight, imagination and a healthy disregard for the impossible. Bring everything that makes you unique. Together, we can build for everyone.</p>
+                                <img src="images/image.png" alt="Post Image" class="post-img">
+                            </div>
+                        </div>
+                    </section>
+                </main>
+                </div>
+            </div>
+            
+            <!-- About Secion -->
+            <div id="about" class="tab-section">
+                <div class="card">
+                    <h2>Overview</h2>
+                    <p style="color: rgb(178, 174, 174); font-weight: 600;">A problem isn't truly solved until it's solved for all. Googlers build products that help create opportunities for everyone, whether down the street or across the globe. Bring your insight, imagination and a healthy disregard for the impossible. Bring everything that makes you unique. Together, we can build for everyone.</p><br>
+
+                    <b>Website</b><br>
+                        <a href="https://goo.gle/3DLEokh"><b>https://goo.gle/3DLEokh</b></a>
+                    <br><br>
+                    <b>Industry</b>
+                    <p style="color: rgb(178, 174, 174); font-weight: 600;">Software Development</p><br>
+                    <b>Company size</b>
+                    <p style="color: rgb(178, 174, 174); font-weight: 600;">10,001+ employees <br>
+                    339,815 associated members</p><br>
+                    <b>Headquarters</b> <br>
+                    <p style="color: rgb(178, 174, 174); font-weight: 600;">Mountain View, CA</p><br>
+                    <b>Specialties</b> <br>
+                    <p style="color: rgb(178, 174, 174);font-weight: 600;">search, ads, mobile, android, online video, apps, machine learning, virtual reality, cloud, hardware, artificial intelligence, youtube, and software</p></div>
+            </div>
+
+            <!-- Jobs Section -->
+            <div id="jobs" class="tab-section">
+                <div class="card">
+                    <h2>Recently Posted Jobs...</h2>
+                      <div class="job-card">
+                        <div class="job-header">
+                        <img src="images/logo4.png" alt="Company Logo">
+                        <div>
+                            <h3>Cloud Engineer</h3>
+                            <p>Google</p>
+                        </div>
+                        </div>
+                        <div class="job-info">
+                        <span class="badge onsite">On site</span>
+                        <span>Bangalore</span>
+                        </div>
+                        <div class="job-salary">24 LPA</div>
+                        <div class="job-positions">8 Positions</div>
+                        <div class="job-footer">
+                    <div class="job-details-link">
+                    <a href="detail4.html">Details →</a>
+                    </div>
+                </div>
+                </div>
+            </div>
+            </div>
+
+            <!-- Review System -->
+            <div id="reviews" class="tab-section">
+                <div class="card"><h3>Reviews</h3>
+                <div class="reviews-container">
+                    <div class="sentiment-analysis card">
+                        <h3>Employee Sentiment</h3>
+                        <div class="sentiment-bar-wrapper">
+                            <div class="sentiment-labels">
+                                <span>Bad</span>
+                                <span>Neutral</span>
+                                <span>Good</span>
+                            </div>
+                            <div class="sentiment-track">
+                                <div id="sentiment-fill" class="sentiment-fill" style="width: 85%;"></div>
+                            </div>
+                        </div>
+                        <p class="sentiment-meta">Based on 1,240 anonymous reviews</p>
+                    </div>
+
+                    <h3>Top Reviews</h3>
+                    <div class="review-slider-wrapper">
+                        <div id="review-track" class="review-track">
+                            <div class="review-card">
+                                <div class="rating-stars">★★★★★</div>
+                                <p>"Innovative culture and great mentorship for junior devs."</p>
+                                <span class="reviewer-tag">Verified Employee - Software Engineer</span>
+                            </div>
+                            <div class="review-card">
+                                <div class="rating-stars">★★★★☆</div>
+                                <p>"High pressure during launch cycles, but the perks are unmatched."</p>
+                                <span class="reviewer-tag">Verified Employee - Product Manager</span>
+                            </div>
+                            <div class="review-card">
+                                <div class="rating-stars">★★★☆☆</div>
+                                <p>"Good pay, but work-life balance varies heavily by team."</p>
+                                <span class="reviewer-tag">Verified Employee - Data Scientist</span>
+                            </div>
+                            <div class="review-card">
+                                <div class="rating-stars">★★★★☆</div>
+                                <p>"High pressure during launch cycles, but the perks are unmatched."</p>
+                                <span class="reviewer-tag">Verified Employee - Product Manager</span>
+                            </div>
+                            <div class="review-card">
+                                <div class="rating-stars">★★★☆☆</div>
+                                <p>"Good pay, but work-life balance varies heavily by team."</p>
+                                <span class="reviewer-tag">Verified Employee - Data Scientist</span>
+                            </div>
+                            <div class="review-card">
+                                <div class="rating-stars">★★★★★</div>
+                                <p>"Innovative culture and great mentorship for junior devs."</p>
+                                <span class="reviewer-tag">Verified Employee - Software Engineer</span>
+                            </div>
+                            <div class="review-card">
+                                <div class="rating-stars">★★★★☆</div>
+                                <p>"High pressure during launch cycles, but the perks are unmatched."</p>
+                                <span class="reviewer-tag">Verified Employee - Product Manager</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="review-actions">
+                        <button class="btn-primary" onclick="openValidation()">Write a Review</button>
+                    </div>
+                    <div id="review-form-container" class="card" style="display: none; margin-top: 20px; animation: slideUp 0.5s ease;">
+                        <h3>Write Your Anonymous Review</h3>
+                        <div class="form-group">
+                            <label>Rating</label>
+                            <select id="review-rating">
+                                <option value="★★★★★">5 Stars</option>
+                                <option value="★★★★☆">4 Stars</option>
+                                <option value="★★★☆☆">3 Stars</option>
+                                <option value="★★☆☆☆">2 Stars</option>
+                                <option value="★☆☆☆☆">1 Star</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Your Role</label>
+                            <input type="text" id="review-role" placeholder="e.g. Software Engineer">
+                        </div>
+                        <div class="form-group">
+                            <label>Review</label>
+                            <textarea id="review-text" rows="4" placeholder="Share your experience..."></textarea>
+                        </div>
+                        <button class="btn-primary" onclick="submitReview()">Post Review</button>
+                    </div>
+                </div>
+
+                <div id="validation-modal" class="modal-overlay">
+                    <div class="modal-content card">
+                        <h2>Employee Verification</h2>
+                        <p>Please enter your corporate email to verify your status. Reviews remain 100% anonymous.</p>
+                        <input type="email" id="emp-email" placeholder="name@company.com">
+                        <div class="modal-btns">
+                            <button class="btn-secondary" onclick="closeValidation()">Cancel</button>
+                            <button class="btn-primary" onclick="verifyAndProceed()">Verify Email</button>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function toggleFollow() {
+            const btn = document.getElementById('follow-btn');
+            if (btn.innerText === "Follow") {
+                btn.innerText = "✓ Following";
+                btn.classList.add('following');
+            } else {
+                btn.innerText = "Follow";
+                btn.classList.remove('following');
+            }
+        }
+
+        function switchTab(event, sectionId) {
+            // 1. Update Tab Styles
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+
+            // 2. Switch Content
+            const sections = document.querySelectorAll('.tab-section');
+            sections.forEach(sec => sec.classList.remove('active'));
+            document.getElementById(sectionId).classList.add('active');
+
+            // 3. Move the Indicator (The Sliding Effect)
+            const indicator = document.getElementById('tab-indicator');
+            const activeTab = event.currentTarget;
+            
+            indicator.style.width = activeTab.offsetWidth + "px";
+            indicator.style.left = activeTab.offsetLeft + "px";
+        }
+
+        // Set initial indicator position on load
+        window.onload = () => {
+            const activeTab = document.querySelector('.tab.active');
+            const indicator = document.getElementById('tab-indicator');
+            indicator.style.width = activeTab.offsetWidth + "px";
+            indicator.style.left = activeTab.offsetLeft + "px";
+        };
+
+        // Review System
+
+        function openValidation() {
+            document.getElementById('validation-modal').style.display = 'flex';
+        }
+
+        function closeValidation() {
+            document.getElementById('validation-modal').style.display = 'none';
+        }
+
+        // 1. Verification Logic
+        function verifyAndProceed() {
+            const email = document.getElementById('emp-email').value;
+            if (email.endsWith('@google.com')) { 
+                alert("Email validated successfully!");
+                closeValidation(); // Hide the modal
+                
+                // Show the review form and hide the 'Write a Review' button
+                document.getElementById('review-form-container').style.display = 'block';
+                document.querySelector('.review-actions').style.display = 'none';
+            } else {
+                alert("Please use a valid company email address.");
+            }
+        }
+
+        // 2. Submission Logic
+        function submitReview() {
+            const rating = document.getElementById('review-rating').value;
+            const role = document.getElementById('review-role').value;
+            const text = document.getElementById('review-text').value;
+
+            if (!role || !text) {
+                alert("Please fill in all fields!");
+                return;
+            }
+
+            const track = document.getElementById('review-track');
+            const wrapper = document.querySelector('.review-slider-wrapper');
+
+            // Create the new review card
+            const newReview = document.createElement('div');
+            newReview.className = 'review-card';
+            newReview.style.borderColor = '#ff00e1'; // Highlight the new post
+            newReview.innerHTML = `
+                <div class="rating-stars">${rating}</div>
+                <p>"${text}"</p>
+                <span class="reviewer-tag">Verified Employee - ${role}</span>
+            `;
+
+            // 1. Add to the front of the track
+            track.prepend(newReview);
+
+            // 2. Success feedback and Reset UI
+            alert("Review posted successfully!");
+            document.getElementById('review-form-container').style.display = 'none';
+            document.querySelector('.review-actions').style.display = 'block';
+
+            // 3. Scroll the wrapper to the very left so the new review is in focus
+            wrapper.scrollTo({
+                left: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Optional: Pause animation on hover
+        const track = document.getElementById('review-track');
+        track.addEventListener('mouseenter', () => track.style.animationPlayState = 'paused');
+        track.addEventListener('mouseleave', () => track.style.animationPlayState = 'running');
+    </script>
+
+</body>
+</html>
