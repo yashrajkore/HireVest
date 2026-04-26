@@ -19,6 +19,7 @@
   display: flex;
   flex-direction: column;
 }
+
 header {
   display: flex;
   align-items: center;
@@ -46,6 +47,52 @@ nav a {
 nav a:hover {
   color: #6495ed;
 }
+
+.user-menu {
+  position: relative; /* Keeps the dropdown anchored to the icon */
+  display: inline-block;
+  font-size: 200%;
+}
+
+.dropdown {
+  display: none; /* Toggled by JS */
+  flex-direction: column; /* Stacks buttons vertically */
+  gap: 8px; /* Adds space between buttons */
+  position: absolute;
+  right: 0;
+  top: 45px;
+  background-color: #1a1a1a; /* Darker to match your theme */
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+  padding: 12px;
+  min-width: 180px;
+  z-index: 1000;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.dropdown button {
+  width: 100%; /* Makes buttons fill the width */
+  background: #3a3a3a; /* Subtle background */
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  text-align: left; /* Aligns text to the left like a real menu */
+  transition: 0.2s;
+}
+
+.dropdown button:hover {
+  background: #5e84e5;
+  transform: translateX(5px); /* Nice little slide effect on hover */
+}
+
+/* Optional: Make logout look different */
+.dropdown button.logout-red:hover {
+  background: #ff4d4d;
+}
+
 .hero {
   flex: 1;
   display: flex;
@@ -98,7 +145,7 @@ nav a:hover {
   background: transparent;
   border: 2px solid white;
   color: white;
-  font-size: 19px;
+  font-size: 17px;
   height: 50px;
   width: 190px;
 }
@@ -373,41 +420,6 @@ hr {
   margin-top: 40px;
 }
       
-
-
-.user-icon {
-  font-size: 28px;
-  margin-left: 52px;
-  cursor: pointer;
-  color: #fff;
-  transition: 0.3s ease;
-}
-
-.user-icon:hover {
-  color: #5e84e5;
-}
-
-.dropdown {
-  display: none;
-  position: absolute;
-  right: 0;
-  top: 40px;
-  background-color: #2a2a2a;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.6);
-  padding: 10px;
-}
-
-.dropdown button {
-  background: #5e84e5;
-  color: white;
-  border: none;
-  padding: 8px 15px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-weight: 600;
-}
-
 :root {
     --primary-gradient: linear-gradient(135deg, #ff00e1, #0d00ff);
     --bot-bg: #2a2a3e;
@@ -530,25 +542,28 @@ hr {
   </style>
 </head>
 <body>
-  <header>
+<header>
     <div class="logo">Hire<span>Vest</span></div>
     <nav>
-      <a href="#" id="starter">Home</a>
-      <a href="#jobs">Jobs</a>
+      <a href="recruiter_home.html" id="starter">Home</a>
+      <a href="findjobs.html">Jobs</a>
       <a href="#Contact">Contact</a>
       <span class="user-menu">
         <i class="fa-solid fa-user-circle user-icon"></i>
-        <span class="dropdown">
-          <button id="logoutBtn">Logout</button>
-        </span>
+        <div class="dropdown">
+          <button id="profileBtn">View Profile</button>
+          <button id="logoutBtn" class="logout-red">Logout</button>
+        </div>
       </span>
     </nav>
   </header>
+
   <section class="hero">
     <h1>Get To Know The Industry With HireVest</h1>
     <p>Welcome to the new era of career building — where finding the right job goes hand-in-hand with understanding the market. Explore opportunities, and track stock predictions to shape a future that is truly yours.”</p>
     <div class="hero-buttons">
       <a href="homejobs.html"><button class="find-jobs">Find Jobs</button></a>
+      <a href="signUp.html"><button class="post-job">Analyze Resume</button></a>
     </div>
 
     <form action="homejobs.html" method="GET">
@@ -754,28 +769,34 @@ hr {
 </div>
 
 <script>
-    const userIcon = document.querySelector('.user-icon');
-    const dropdown = document.querySelector('.dropdown');
-    const logoutBtn = document.getElementById('logoutBtn');
+  const userIcon = document.querySelector('.user-icon');
+  const dropdown = document.querySelector('.dropdown');
+  const logoutBtn = document.getElementById('logoutBtn');
+  const viewProfile = document.getElementById('profileBtn');
 
-    // Toggle dropdown visibility
-    userIcon.addEventListener('click', () => {
-    dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
-    });
 
-    // Logout action
-    logoutBtn.addEventListener('click', () => {
-    alert('Logged out successfully!');
-    window.location.href = "signUp.html"; 
-    });
+  // Toggle dropdown visibility
+  userIcon.addEventListener('click', (e) => {
+      e.stopPropagation(); // Prevents immediate closing
+      const isVisible = dropdown.style.display === 'flex';
+      dropdown.style.display = isVisible ? 'none' : 'flex';
+  });
 
-    // Close dropdown if clicked outside
-    window.addEventListener('click', (e) => {
-      if (!userIcon.contains(e.target) && !dropdown.contains(e.target)) {
-        dropdown.style.display = 'none';
-      }
-    });
-  </script>
+  // Logout action
+  logoutBtn.addEventListener('click', () => {
+      alert('Logged out successfully!');
+      window.location.href = "signUp.html";
+  });
+
+  viewProfile.addEventListener('click', () => {
+      window.location.href = "userProfile.html";
+  });
+
+  // Close dropdown if clicked outside
+  window.addEventListener('click', () => {
+      dropdown.style.display = 'none';
+  });
+</script>
 
 </body>
 </html>

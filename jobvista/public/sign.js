@@ -13,6 +13,8 @@ loginBtn.addEventListener('click', () => {
 const registerForm = document.querySelector('.sign-up form');
 const loginForm = document.querySelector('.sign-in form');
 
+//User Authentication
+
 // Register
 registerForm.addEventListener('submit', async (e) => {
     e.preventDefault();

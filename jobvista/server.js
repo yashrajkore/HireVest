@@ -113,6 +113,8 @@ db.run(`CREATE TABLE IF NOT EXISTS users (
     user_type TEXT
 )`);
 
+//Authentication System
+
 // Register user
 app.post('/register', (req, res) => {
     const { name, email, password, userType } = req.body;

@@ -546,13 +546,13 @@ hr {
       <span class="user-menu">
         <i class="fa-solid fa-user-circle user-icon"></i>
         <div class="dropdown">
-          <button id="profileBtn">View Profile</button>
           <button id="companyBtn">View Company Profile</button>
           <button id="logoutBtn" class="logout-red">Logout</button>
         </div>
       </span>
     </nav>
   </header>
+
   <section class="hero">
     <h1>Get To Know The Industry With HireVest</h1>
     <p>Welcome to the new era of career building — where finding the right job goes hand-in-hand with understanding the market. Explore opportunities, and track stock predictions to shape a future that is truly yours.”</p>
@@ -830,10 +830,6 @@ function showStock(company, chartId) {
   // Logout action
   logoutBtn.addEventListener('click', () => {
       alert('Logged out successfully!');
-      window.location.href = "signUp.html";
-  });
-
-  viewProfile.addEventListener('click', () => {
       window.location.href = "signUp.html";
   });
 
