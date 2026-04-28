@@ -939,6 +939,7 @@ const tickerMap = {
     "Zomato": "BSE:ZOMATO",
     "MRF": "BSE:MRF",
     "Reliance": "BSE:RELIANCE",
+    "Suzlon" : "BSE:SUZLON",
     "Wipro": "BSE:WIPRO",
     "HCL Technologies": "BSE:HCLTECH"
 };
@@ -961,7 +962,7 @@ function openStockAnalysis(company) {
     container.innerHTML = ""; // Clear old chart
     modal.style.display = "flex";
 
-    const ticker = tickerMap[company] || "BSE:SENSEX"; // Fallback to Sensex if not found
+   const ticker = tickerMap[company] || "BSE:SENSEX"; // Fallback to Sensex if not found
 
     // TradingView Widget Script
     const script = document.createElement('script');

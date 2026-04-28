@@ -74,10 +74,41 @@ body{
     padding: 20px;
   }
 }
+header {
+  display: flex;
+  position: sticky;
+  top: 0;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 30px;
+  background: #03040c;
+  z-index: 1000;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.nav-container {
+  display: flex;
+  align-items: center;
+}
+
+/* Your original styles */
+.logo { font-size: 30px; font-weight: bold; color: white; display: flexbox; }
+.logo span { color: #6495ed; }
 
   </style>
 </head>
 <body>
+
+  <header>
+        <div class="logo">Hire<span>Vest</span></div>
+
+        <div class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+  </header>
 
   <main class="post-job-form-container">
     <h1>Post a New Job</h1>
