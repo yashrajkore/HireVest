@@ -8,7 +8,7 @@ jobvista/node_modules/
 .vscode/
 
 # Secrets
-.env
+public/.env
 
 # User Uploads (keeps the folder, ignores the content)
 uploads/*

@@ -33,31 +33,51 @@
         .logo { font-size: 30px; font-weight: bold; color: white; }
         .logo span { color: #6495ed; }
         
-        .user-menu { position: relative; font-size: 2rem; cursor: pointer; }
-        .dropdown {
-            display: none;
-            flex-direction: column;
-            gap: 8px;
-            position: absolute;
-            right: 0;
-            top: 45px;
-            background-color: #1a1a1a;
-            border-radius: 10px;
-            padding: 12px;
-            min-width: 180px;
-            z-index: 1000;
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-        .dropdown button {
-            width: 100%;
-            background: #3a3a3a;
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            border-radius: 6px;
-            cursor: pointer;
-            text-align: left;
-        }
+.user-menu {
+  position: relative; /* Keeps the dropdown anchored to the icon */
+  display: inline-block;
+  margin-left: 20%;
+  font-size: 200%;
+}
+
+.dropdown {
+  display: none; /* Toggled by JS */
+  flex-direction: column; /* Stacks buttons vertically */
+  gap: 8px; /* Adds space between buttons */
+  position: absolute;
+  right: 0;
+  top: 45px;
+  background-color: #1a1a1a; /* Darker to match your theme */
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+  padding: 12px;
+  min-width: 180px;
+  z-index: 1000;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.dropdown button {
+  width: 100%; /* Makes buttons fill the width */
+  background: #3a3a3a; /* Subtle background */
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  text-align: left; /* Aligns text to the left like a real menu */
+  transition: 0.2s;
+}
+
+.dropdown button:hover {
+  background: #5e84e5;
+  transform: translateX(5px); /* Nice little slide effect on hover */
+}
+
+/* Optional: Make logout look different */
+.dropdown button.logout-red:hover {
+  background: #ff4d4d;
+}
 
         /* --- Layout --- */
         .profile-wrapper {
@@ -162,14 +182,14 @@
 <header>
     <div class="logo">Hire<span>Vest</span></div>
     <nav>
-        <span class="user-menu" id="userMenuTrigger">
-            <i class="fa-solid fa-user-circle"></i>
-            <div class="dropdown" id="userDropdown">
-                <button onclick="location.href='home.html'">Home</button>
-                <button onclick="location.href='jobs.html'">Jobs</button>
-                <button onclick="clearStorage()" style="color: #ff4d4d;">Reset Profile</button>
-            </div>
-        </span>
+      <span class="user-menu">
+        <i class="fa-solid fa-user-circle user-icon"></i>
+        <div class="dropdown">
+          <button id="homeBtn">Home</button>
+          <button id="jobsBtn">Jobs</button>
+          <button id="logoutBtn" class="logout-red">Logout</button>
+        </div>
+      </span>
     </nav>
 </header>
 
@@ -195,7 +215,7 @@
                 <p><i class="fa-solid fa-location-dot"></i> <span id="userLoc" contenteditable="true">  Current Location</span></p>
                 <p><i class="fa-solid fa-envelope"></i> <span id="userEmail" contenteditable="true"> email_ID</span></p>
             </div>
-            <button class="btn-primary">Download Resume</button>
+            <a href="https://resumeet-ai.onrender.com/"><button class="btn-primary">Analyze Resume</button></a>
         </div>
     </aside>
 
@@ -253,16 +273,41 @@
 </div>
 
 <script>
-    // --- Dropdown Logic ---
-    const menuTrigger = document.getElementById('userMenuTrigger');
-    const dropdown = document.getElementById('userDropdown');
+  const userIcon = document.querySelector('.user-icon');
+  const dropdown = document.querySelector('.dropdown');
+  const logoutBtn = document.getElementById('logoutBtn');
+  const homejobs = document.getElementById('homejobs');
+  const homeBtn = document.getElementById('homeBtn');
 
-    menuTrigger.addEventListener('click', (e) => {
-        e.stopPropagation();
-        dropdown.style.display = dropdown.style.display === 'flex' ? 'none' : 'flex';
-    });
 
-    window.onclick = () => dropdown.style.display = 'none';
+  // Toggle dropdown visibility
+  userIcon.addEventListener('click', (e) => {
+      e.stopPropagation(); // Prevents immediate closing
+      const isVisible = dropdown.style.display === 'flex';
+      dropdown.style.display = isVisible ? 'none' : 'flex';
+  });
+
+  // Logout action
+  logoutBtn.addEventListener('click', () => {
+      alert('Logged out successfully!');
+      window.location.href = "signUp.html";
+  });
+
+  homeBtn.addEventListener('click', () => {
+      window.location.href = "home.html";
+  });
+
+  jobsBtn.addEventListener('click', () => {
+      window.location.href = "homejobs.html";
+  });
+
+  // Close dropdown if clicked outside
+  window.addEventListener('click', () => {
+      dropdown.style.display = 'none';
+  });
+</script>
+
+<script>
 
     // --- Image Upload Logic ---
     const fileInput = document.getElementById('fileInput');

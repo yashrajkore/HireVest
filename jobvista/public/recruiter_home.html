@@ -540,13 +540,11 @@ hr {
   <header>
     <div class="logo">Hire<span>Vest</span></div>
     <nav>
-      <a href="recruiter_home.html" id="starter">Home</a>
-      <a href="findjobs.html">Jobs</a>
-      <a href="#Contact">Contact</a>
       <span class="user-menu">
         <i class="fa-solid fa-user-circle user-icon"></i>
         <div class="dropdown">
           <button id="companyBtn">View Company Profile</button>
+          <button id="jobsBtn">View Jobs</button>
           <button id="logoutBtn" class="logout-red">Logout</button>
         </div>
       </span>
@@ -559,13 +557,6 @@ hr {
     <div class="hero-buttons">
       <a href="postJob.html"><button class="find-jobs">Post a Job</button></a>
     </div>
-
-    <form action="findJobs.html" method="GET">
-    <div class="search-bar">
-      <input type="text" name="query" id="searchInput" placeholder="Search by job title or skills">
-      <button type="submit">Search</button>
-    </div>
-  </form>
 
     </div>
   </section>
@@ -603,43 +594,6 @@ hr {
     <canvas></canvas>
   </div>
 </div>
-
-<script>
-function showStock(company, chartId) {
-  const container = document.getElementById(chartId);
-  container.style.display = container.style.display === "none" ? "block" : "none";
-
-  const ctx = container.querySelector("canvas");
-
-  // Example mock stock data (replace with real API later)
-  const data = {
-    labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
-    datasets: [{
-      label: company + " Stock Price",
-      data: [3450, 3480, 3475, 3500, 3520, 3540, 3600], // Example stock prices
-      borderColor: "#8b5cf6",
-      backgroundColor: "rgba(139, 92, 246, 0.2)",
-      fill: true,
-      tension: 0.3
-    }]
-  };
-
-  new Chart(ctx, {
-    type: "line",
-    data: data,
-    options: {
-      responsive: true,
-      plugins: {
-        legend: { labels: { color: "#f1f5f9" } }
-      },
-      scales: {
-        x: { ticks: { color: "#94a3b8" } },
-        y: { ticks: { color: "#94a3b8" } }
-      }
-    }
-  });
-}
-</script>
 
       <!-- Job Card 2 -->
       <div class="job-card">
@@ -815,7 +769,7 @@ function showStock(company, chartId) {
   const userIcon = document.querySelector('.user-icon');
   const dropdown = document.querySelector('.dropdown');
   const logoutBtn = document.getElementById('logoutBtn');
-  const viewProfile = document.getElementById('profileBtn');
+  const jobsBtn = document.getElementById('jobsBtn');
   const viewCompany = document.getElementById('companyBtn');
 
 
@@ -835,6 +789,10 @@ function showStock(company, chartId) {
 
   viewCompany.addEventListener('click', () => {
       window.location.href = "organizationProfile.html";
+  });
+
+    jobsBtn.addEventListener('click', () => {
+      window.location.href = "findJobs.html";
   });
 
   // Close dropdown if clicked outside
@@ -868,11 +826,11 @@ function processCommand() {
         
         if (text.includes("job") || text.includes("work") || text.includes("jobs") || text.includes("openings") || text.includes("vacancies") || text.includes("positions") || text.includes("career") || text.includes("opportunities") || text.includes("hiring") || text.includes("recruitment") || text.includes("employment") || text.includes("job board") || text.includes("job listings") || text.includes("job opportunities") || text.includes("job openings")) {
             response = "Sure! Redirecting you to our Job Board...";
-            setTimeout(() => window.location.href = "homejobs.html", 1500); // Redirects to job board page
+            setTimeout(() => window.location.href = "findjobs.html", 1500); // Redirects to job board page
         } 
         else if (text.includes("home") || text.includes("main") || text.includes("homepage") || text.includes("start") || text.includes("welcome") || text.includes("landing")) {
             response = "Heading back to the homepage...";
-            setTimeout(() => window.location.href = "home.html", 1500);
+            setTimeout(() => window.location.href = "recruiter_home.html", 1500);
         }
         else if (text.includes("login") || text.includes("sign in") || text.includes("register") || text.includes("sign up") || text.includes("account")) {
             response = "Let's look at the joining section...";
@@ -880,7 +838,7 @@ function processCommand() {
         }
         else if(text.includes("share price") || text.includes("stock price") || text.includes("current price") || text.includes("price of shares") || text.includes("stock market price") || text.includes("share value") || text.includes("current stock price") || text.includes("latest share price") || text.includes("stock value") || text.includes("share price today") || text.includes("share market") || text.includes("current share price") || text.includes("current stock value") || text.includes("latest stock price") || text.includes("latest share value") || text.includes("stock price now") || text.includes("share price now")) {
             response = "Let me fetch the page where you can access share prices...";
-            setTimeout(() => window.location.href = "homejobs.html", 1500); // Redirects to share price page
+            setTimeout(() => window.location.href = "findjobs.html", 1500); // Redirects to share price page
         }
 
         body.innerHTML += `<div class="bot-msg">${response}</div>`;
