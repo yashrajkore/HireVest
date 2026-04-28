@@ -4,345 +4,363 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://kit.fontawesome.com/b3878f124d.js" crossorigin="anonymous"></script>
-    <title>Document</title>
+    <title>Profile | HireVest</title>
     <style>
-:root {
-    --bg-deep: #05050a;
-    --bg-card: #12121c;
-    --text-main: #ffffff;
-    --text-dim: #b0b0b0;
-    --primary-gradient: linear-gradient(135deg, #002fff, #0d00ff);
-    --border-glow: rgba(255, 255, 255, 0.08);
-}
+        :root {
+            --bg-deep: #05050a;
+            --bg-card: #12121c;
+            --text-main: #ffffff;
+            --text-dim: #b0b0b0;
+            --primary-gradient: linear-gradient(135deg, #002fff, #0d00ff);
+            --border-glow: rgba(255, 255, 255, 0.08);
+        }
 
-header {
-  display: flex;
-  align-items: center;
-  padding: 20px 50px;
-  background: #03040c;
-}
-.logo {
-  font-size: 30px;
-  font-weight: bold;
-  color: white;
-}
-.logo span {
-  color: #6495ed;
-}
-#starter{
-  margin-left: 950px;
-}
-nav a {
-  color: white;
-  text-decoration: none;
-  margin: 0 15px;
-  font-size: 18px;
-  font-weight: 600;
-}
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-deep);
+            color: var(--text-main);
+        }
 
-nav a:hover {
-  color: #6495ed;
-}
+        /* --- Header --- */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            background: #03040c;
+        }
+        .logo { font-size: 30px; font-weight: bold; color: white; }
+        .logo span { color: #6495ed; }
+        
+        .user-menu { position: relative; font-size: 2rem; cursor: pointer; }
+        .dropdown {
+            display: none;
+            flex-direction: column;
+            gap: 8px;
+            position: absolute;
+            right: 0;
+            top: 45px;
+            background-color: #1a1a1a;
+            border-radius: 10px;
+            padding: 12px;
+            min-width: 180px;
+            z-index: 1000;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .dropdown button {
+            width: 100%;
+            background: #3a3a3a;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            text-align: left;
+        }
 
-.user-menu {
-  position: relative; /* Keeps the dropdown anchored to the icon */
-  margin-left: 3890%;
-  display: inline-block;
-  font-size: 200%;
-}
+        /* --- Layout --- */
+        .profile-wrapper {
+            display: flex;
+            gap: 30px;
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
 
-.dropdown {
-  display: none; /* Toggled by JS */
-  flex-direction: column; /* Stacks buttons vertically */
-  gap: 8px; /* Adds space between buttons */
-  position: absolute;
-  right: 0;
-  top: 45px;
-  background-color: #1a1a1a; /* Darker to match your theme */
-  border-radius: 10px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.5);
-  padding: 12px;
-  min-width: 180px;
-  z-index: 1000;
-  border: 1px solid rgba(255,255,255,0.1);
-}
+        .profile-sidebar { flex: 0 0 320px; }
+        .user-card { text-align: center; position: sticky; top: 20px; padding: 30px 20px; background: var(--bg-card); border-radius: 15px; }
 
-.dropdown button {
-  width: 100%; /* Makes buttons fill the width */
-  background: #3a3a3a; /* Subtle background */
-  color: white;
-  border: none;
-  padding: 10px 15px;
-  border-radius: 6px;
-  cursor: pointer;
-  font-weight: 500;
-  text-align: left; /* Aligns text to the left like a real menu */
-  transition: 0.2s;
-}
+        /* --- Editable Avatar --- */
+        .avatar-wrapper {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 20px;
+        }
+        .avatar-wrapper img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 3px solid #1100ff;
+            object-fit: cover;
+        }
+        .edit-avatar {
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+            background: #0f33a8;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+        }
 
-.dropdown button:hover {
-  background: #5e84e5;
-  transform: translateX(5px); /* Nice little slide effect on hover */
-}
+        /* --- Editable Text Styles --- */
+        [contenteditable="true"] {
+            outline: none;
+            padding: 2px 4px;
+            transition: background 0.3s;
+        }
+        [contenteditable="true"]:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 4px;
+        }
+        [contenteditable="true"]:focus {
+            background: rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid #6495ed;
+        }
 
-/* Optional: Make logout look different */
-.dropdown button.logout-red:hover {
-  background: #ff4d4d;
-}
-body {
-    margin: 0;
-    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-    background-color: var(--bg-deep);
-    color: var(--text-main);
-}
-.profile-wrapper {
-    display: flex;
-    gap: 30px;
-    max-width: 1200px;
-    margin: 40px auto;
-    padding: 0 20px;
-}
+        .user-stats { display: flex; justify-content: space-around; margin: 20px 0; color: var(--text-dim); }
+        .btn-primary { background: var(--primary-gradient); border: none; color: white; padding: 10px 25px; border-radius: 20px; font-weight: bold; cursor: pointer; margin-top: 15px;}
 
-/* Sidebar Styling */
-.profile-sidebar {
-    flex: 0 0 320px;
-}
+        /* --- Main Content --- */
+        .profile-main { flex: 1; display: flex; flex-direction: column; gap: 25px; }
+        .profile-section { background: var(--bg-card); padding: 25px; border-radius: 15px; position: relative;}
+        .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .section-header h3 { font-size: 1.3rem; color: #6495ed; margin: 0;}
+        .add-btn { background: transparent; color: #6495ed; border: 1px solid #6495ed; padding: 5px 12px; border-radius: 15px; cursor: pointer; font-size: 0.8rem;}
+        
+        .timeline-item, .project-item {
+            border-left: 2px solid rgba(100, 149, 237, 0.3);
+            padding-left: 20px;
+            margin-bottom: 25px;
+            position: relative;
+        }
+        .delete-btn {
+            position: absolute;
+            right: 0;
+            top: 0;
+            color: #ff4d4d;
+            cursor: pointer;
+            font-size: 0.8rem;
+            opacity: 0.5;
+        }
+        .delete-btn:hover { opacity: 1; }
 
-.user-card {
-    text-align: center;
-    position: sticky;
-    top: 20px;
-    padding: 30px 20px;
-}
+        .skill-tags { display: flex; flex-wrap: wrap; gap: 10px; }
+        .skill-tag {
+            background: rgba(94, 132, 229, 0.1);
+            border: 1px solid rgba(94, 132, 229, 0.3);
+            padding: 6px 15px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .remove-skill { cursor: pointer; font-size: 12px; color: #ff4d4d; }
 
-.avatar-wrapper {
-    position: relative;
-    width: 120px;
-    height: 120px;
-    margin: 0 auto 20px;
-}
-
-.avatar-wrapper img {
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    border: 3px solid #1100ff;
-    object-fit: cover;
-}
-
-.edit-avatar {
-    position: absolute;
-    bottom: 5px;
-    right: 5px;
-    background: #0f33a8;
-    color: white;
-    border: none;
-    border-radius: 50%;
-    width: 30px;
-    height: 30px;
-    cursor: pointer;
-}
-
-.user-stats {
-    display: flex;
-    justify-content: space-around;
-    margin: 20px 0;
-    font-size: 0.9rem;
-    color: var(--text-dim);
-}
-.btn-primary {
-    background: var(--primary-gradient);
-    border: none;
-    color: white;
-    padding: 8px 20px;
-    border-radius: 20px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-/* Main Sections Styling */
-.profile-main {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 25px;
-}
-
-.section-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-}
-
-.section-header h3 {
-    font-size: 1.3rem;
-    color: #0400ff;
-}
-
-.add-btn {
-    background: transparent;
-    color: #5e84e5;
-    border: none;
-    font-weight: 600;
-    cursor: pointer;
-}
-
-.timeline-item, .project-item {
-    border-left: 2px solid rgba(255, 255, 255, 0.1);
-    padding-left: 20px;
-    margin-bottom: 20px;
-}
-
-.skill-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-}
-
-.skill-tag {
-    background: rgba(94, 132, 229, 0.1);
-    border: 1px solid rgba(94, 132, 229, 0.3);
-    padding: 6px 15px;
-    border-radius: 20px;
-    font-size: 0.85rem;
-    color: #fff;
-}
-
-.project-title-row {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 5px;
-}
-
-.project-date {
-    font-size: 0.85rem;
-    color: var(--text-dim);
-}
+        .project-title-row { display: flex; justify-content: space-between; align-items: baseline; }
+        .project-date { font-size: 0.85rem; color: var(--text-dim); }
+        .details, .institute { color: var(--text-dim); margin: 5px 0; }
     </style>
 </head>
 <body>
 
-  <header>
+<header>
     <div class="logo">Hire<span>Vest</span></div>
     <nav>
-      <span class="user-menu">
-        <i class="fa-solid fa-user-circle user-icon"></i>
-        <div class="dropdown">
-          <button id="homeBtn" class="button">Home</button>
-          <button id="jobsBtn" class="button">Jobs</button>
-          <button id="logoutBtn" class="logout-red">Logout</button>
-        </div>
-      </span>
+        <span class="user-menu" id="userMenuTrigger">
+            <i class="fa-solid fa-user-circle"></i>
+            <div class="dropdown" id="userDropdown">
+                <button onclick="location.href='home.html'">Home</button>
+                <button onclick="location.href='jobs.html'">Jobs</button>
+                <button onclick="clearStorage()" style="color: #ff4d4d;">Reset Profile</button>
+            </div>
+        </span>
     </nav>
-  </header>
+</header>
 
 <div class="profile-wrapper">
     <aside class="profile-sidebar">
-        <div class="user-card card">
+        <div class="user-card">
             <div class="avatar-wrapper">
-                <img src="images/ProfileImage.jpeg" alt="Profile Picture">
-                <button class="edit-avatar"><i class="fa-solid fa-pen"></i></button>
+                <img id="profilePic" src="images/UserImage.jpg" alt="Profile">
+                <button class="edit-avatar" onclick="document.getElementById('fileInput').click()">
+                    <i class="fa-solid fa-pen"></i>
+                </button>
+                <input type="file" id="fileInput" style="display:none" accept="image/*">
             </div>
-            <h2>David J</h2>
-            <p class="user-role">Final Year B.Tech CSE Student</p>
+            <h2 id="userName" contenteditable="true">Username</h2>
+            <p id="userRole" class="user-role" contenteditable="true">About Yourself...</p>
+            
             <div class="user-stats">
-                <span><strong>3.79</strong> CGPA</span>
-                <span><strong>15+</strong> Projects</span>
+                <span><strong id="statCGPA" contenteditable="true">8.79</strong> CGPA</span>
+                <span><strong id="statProjects" contenteditable="true">15+</strong> Projects</span>
             </div>
-            <hr class="divider">
+            <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.1); margin: 20px 0;">
             <div class="contact-info">
-                <p><i class="fa-solid fa-location-dot"></i> San Francisco / Palo Alto</p>
-                <p><i class="fa-solid fa-envelope"></i> david@example.com</p>
+                <p><i class="fa-solid fa-location-dot"></i> <span id="userLoc" contenteditable="true">  Current Location</span></p>
+                <p><i class="fa-solid fa-envelope"></i> <span id="userEmail" contenteditable="true"> email_ID</span></p>
             </div>
             <button class="btn-primary">Download Resume</button>
         </div>
     </aside>
 
     <main class="profile-main">
-        <section class="profile-section card">
+        <section class="profile-section">
+            <div class="section-header">
+                <h3>Professional Summary</h3>
+            </div>
+            <p id="userAbout" contenteditable="true">Describe Yourself...</p>
+        </section>
+
+        <section class="profile-section">
             <div class="section-header">
                 <h3>Education</h3>
-                <button class="add-btn">+ Add</button>
+                <button class="add-btn" onclick="addEducation()">+ Add</button>
             </div>
-            <div class="timeline-item">
-                <h4>B.Tech in Computer Science and Engineering</h4>
-                <p class="institute">Harvard university | 2022 - 2026</p>
-                <p class="details">Current CGPA: 3.79. Completed 7th semester in Nov 2025.</p>
+            <div id="educationList">
+                <div class="timeline-item">
+                    <span class="delete-btn" onclick="this.parentElement.remove()">Delete</span>
+                    <h4 contenteditable="true">Degree Name</h4>
+                    <p class="institute" contenteditable="true">College Name | Year</p>
+                    <p class="details" contenteditable="true">Description...</p>
+                </div>
             </div>
         </section>
 
-        <section class="profile-section card">
+        <section class="profile-section">
             <div class="section-header">
                 <h3>Skills</h3>
-                <button class="add-btn">+ Add</button>
+                <button class="add-btn" onclick="addSkill()">+ Add</button>
             </div>
-            <div class="skill-tags">
-                <span class="skill-tag">Core Java</span>
-                <span class="skill-tag">Python (NumPy/Pandas)</span>
-                <span class="skill-tag">DSA</span>
-                <span class="skill-tag">Flask</span>
-                <span class="skill-tag">UI/UX Design</span>
+            <div class="skill-tags" id="skillsList">
+                <div class="skill-tag"><span contenteditable="true">Skill-1</span><i class="fa-solid fa-xmark remove-skill" onclick="this.parentElement.remove()"></i></div>
+                <div class="skill-tag"><span contenteditable="true">Skill-2</span><i class="fa-solid fa-xmark remove-skill" onclick="this.parentElement.remove()"></i></div>
             </div>
         </section>
 
-        <section class="profile-section card">
+        <section class="profile-section">
             <div class="section-header">
                 <h3>Key Projects</h3>
-                <button class="add-btn">+ Add</button>
+                <button class="add-btn" onclick="addProject()">+ Add</button>
             </div>
-            <div class="project-item">
-                <div class="project-title-row">
-                    <h4>HireVest Org Hub</h4>
-                    <span class="project-date">2026</span>
+            <div id="projectsList">
+                <div class="project-item">
+                    <span class="delete-btn" onclick="this.parentElement.remove()">Delete</span>
+                    <div class="project-title-row">
+                        <h4 contenteditable="true">Project-1</h4>
+                        <span class="project-date" contenteditable="true">2026</span>
+                    </div>
+                    <p contenteditable="true">Description...</p>
                 </div>
-                <p>Designed a professional organization hub with real-time sentiment analysis and sliding review systems.</p>
-            </div>
-            <div class="project-item">
-                <div class="project-title-row">
-                    <h4>Resumeet AI</h4>
-                    <span class="project-date">2026</span>
-                </div>
-                <p>AI-based resume analyzer using Python, Flask, and Gemini API for scoring resumes against JDs.</p>
             </div>
         </section>
     </main>
 </div>
 
 <script>
-        const userIcon = document.querySelector('.user-icon');
-        const dropdown = document.querySelector('.dropdown');
-        const logoutBtn = document.getElementById('logoutBtn');
-        const homeBtn = document.getElementById('homeBtn');
-        const jobsBtn = document.getElementById('jobsBtn');
+    // --- Dropdown Logic ---
+    const menuTrigger = document.getElementById('userMenuTrigger');
+    const dropdown = document.getElementById('userDropdown');
 
+    menuTrigger.addEventListener('click', (e) => {
+        e.stopPropagation();
+        dropdown.style.display = dropdown.style.display === 'flex' ? 'none' : 'flex';
+    });
 
+    window.onclick = () => dropdown.style.display = 'none';
 
-        // Toggle dropdown visibility
-        userIcon.addEventListener('click', (e) => {
-            e.stopPropagation(); // Prevents immediate closing
-            const isVisible = dropdown.style.display === 'flex';
-            dropdown.style.display = isVisible ? 'none' : 'flex';
-        });
+    // --- Image Upload Logic ---
+    const fileInput = document.getElementById('fileInput');
+    const profilePic = document.getElementById('profilePic');
 
-        // Logout action
-        logoutBtn.addEventListener('click', () => {
-            alert('Logged out successfully!');
-            window.location.href = "signUp.html";
-        });
+    fileInput.onchange = function() {
+        const file = this.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                profilePic.src = e.target.result;
+                saveData();
+            };
+            reader.readAsDataURL(file);
+        }
+    };
 
-        homeBtn.addEventListener('click', () => {
-            window.location.href = "home.html";
-        });
+    // --- Dynamic Addition Functions ---
+    function addEducation() {
+        const html = `
+            <div class="timeline-item">
+                <span class="delete-btn" onclick="this.parentElement.remove(); saveData();">Delete</span>
+                <h4 contenteditable="true">Degree Name</h4>
+                <p class="institute" contenteditable="true">University | Year</p>
+                <p class="details" contenteditable="true">Description or details go here.</p>
+            </div>`;
+        document.getElementById('educationList').insertAdjacentHTML('beforeend', html);
+    }
 
-        jobsBtn.addEventListener('click', () => {
-            window.location.href = "homejobs.html";
-        });
+    function addSkill() {
+        const skill = prompt("Enter Skill Name:");
+        if(skill) {
+            const html = `<div class="skill-tag"><span contenteditable="true">${skill}</span><i class="fa-solid fa-xmark remove-skill" onclick="this.parentElement.remove(); saveData();"></i></div>`;
+            document.getElementById('skillsList').insertAdjacentHTML('beforeend', html);
+            saveData();
+        }
+    }
 
-        // Close dropdown if clicked outside
-        window.addEventListener('click', () => {
-            dropdown.style.display = 'none';
-        });
+    function addProject() {
+        const html = `
+            <div class="project-item">
+                <span class="delete-btn" onclick="this.parentElement.remove(); saveData();">Delete</span>
+                <div class="project-title-row">
+                    <h4 contenteditable="true">Project Title</h4>
+                    <span class="project-date" contenteditable="true">Year</span>
+                </div>
+                <p contenteditable="true">Short description of the project and tech stack used.</p>
+            </div>`;
+        document.getElementById('projectsList').insertAdjacentHTML('beforeend', html);
+    }
+
+    // --- Persistence (Local Storage) ---
+    function saveData() {
+        const profileData = {
+            name: document.getElementById('userName').innerText,
+            role: document.getElementById('userRole').innerText,
+            cgpa: document.getElementById('statCGPA').innerText,
+            projCount: document.getElementById('statProjects').innerText,
+            loc: document.getElementById('userLoc').innerText,
+            email: document.getElementById('userEmail').innerText,
+            about: document.getElementById('userAbout').innerText,
+            image: profilePic.src,
+            education: document.getElementById('educationList').innerHTML,
+            skills: document.getElementById('skillsList').innerHTML,
+            projects: document.getElementById('projectsList').innerHTML
+        };
+        localStorage.setItem('hirevest_profile', JSON.stringify(profileData));
+    }
+
+    function loadData() {
+        const saved = localStorage.getItem('hirevest_profile');
+        if (saved) {
+            const data = JSON.parse(saved);
+            document.getElementById('userName').innerText = data.name;
+            document.getElementById('userRole').innerText = data.role;
+            document.getElementById('statCGPA').innerText = data.cgpa;
+            document.getElementById('statProjects').innerText = data.projCount;
+            document.getElementById('userLoc').innerText = data.loc;
+            document.getElementById('userEmail').innerText = data.email;
+            document.getElementById('userAbout').innerText = data.about;
+            profilePic.src = data.image;
+            document.getElementById('educationList').innerHTML = data.education;
+            document.getElementById('skillsList').innerHTML = data.skills;
+            document.getElementById('projectsList').innerHTML = data.projects;
+        }
+    }
+
+    function clearStorage() {
+        if(confirm("Are you sure you want to reset your profile?")) {
+            localStorage.removeItem('hirevest_profile');
+            location.reload();
+        }
+    }
+
+    // Auto-save on any input
+    document.addEventListener('input', saveData);
+    window.onload = loadData;
+
 </script>
 
 </body>
