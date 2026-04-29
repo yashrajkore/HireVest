@@ -575,6 +575,161 @@ header {
     from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
 }
+
+    .chatbot-button {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: linear-gradient(to right, #ff00e1, #0d00ff);
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 30px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      animation: float 2s ease-in-out infinite;
+      transition: background 0.3s;
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-17px);
+      }
+    }
+
+
+    .chatbot-button:hover {
+      background: #4169e1;
+    }
+
+
+:root {
+    --primary-gradient: linear-gradient(135deg, #ff00e1, #0d00ff);
+    --bot-bg: #2a2a3e;
+    --user-bg: #0d00ff;
+    --chat-bg: #12121c; /* Matches your dark site theme */
+    --text-color: #ffffff;
+}
+
+.chat-container {
+    display: none; 
+    position: fixed;
+    bottom: 90px;
+    right: 25px;
+    width: 350px;
+    height: 500px;
+    background: var(--chat-bg);
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+    flex-direction: column;
+    overflow: hidden;
+    z-index: 9999;
+    font-family: 'Inter', -apple-system, sans-serif;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+}
+
+.chat-header {
+    background: var(--primary-gradient);
+    color: white;
+    padding: 20px;
+    font-weight: 700;
+    text-align: left;
+    font-size: 1.1rem;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.chat-body {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    background: var(--chat-bg);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    scrollbar-width: thin;
+    scrollbar-color: #333 transparent;
+}
+
+/* Custom Scrollbar for Chrome/Safari */
+.chat-body::-webkit-scrollbar { width: 5px; }
+.chat-body::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
+
+.bot-msg, .user-msg {
+    max-width: 80%;
+    padding: 12px 16px;
+    font-size: 14px;
+    line-height: 1.5;
+    animation: fadeIn 0.3s ease;
+}
+
+.bot-msg {
+    background: var(--bot-bg);
+    color: #e0e0e0;
+    border-radius: 15px 15px 15px 2px;
+    align-self: flex-start;
+}
+
+.user-msg {
+    background: var(--primary-gradient);
+    color: white;
+    border-radius: 15px 15px 2px 15px;
+    align-self: flex-end;
+    box-shadow: 0 4px 12px rgba(13, 0, 255, 0.3);
+}
+
+.chat-footer {
+    display: flex;
+    padding: 15px;
+    background: #1a1a2e;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    gap: 10px;
+}
+
+#chat-input {
+    flex: 1;
+    background: #2a2a3e;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 12px;
+    color: white;
+    outline: none;
+    transition: border 0.3s;
+}
+
+#chat-input:focus {
+    border-color: #ff00e1;
+}
+
+.chat-footer button {
+    background: var(--primary-gradient);
+    border: none;
+    color: white;
+    padding: 0 15px;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.chat-footer button:hover {
+    transform: scale(1.05);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
 </style>
 </head>
 <body class="dark-theme">
@@ -802,6 +957,21 @@ header {
             </div>
         </div>
     </div>
+
+    <button class="chatbot-button" onclick="toggleChat()">Ask AI ✨</button>
+
+    <div id="chat-window" class="chat-container">
+        <div class="chat-header">HireVest AI Assistant</div>
+        <div id="chat-body" class="chat-body">
+            <p class="bot-msg">Hello! I'm the HireVest bot. <b>How Can I Help You ?</b></p>
+        </div>
+        <div class="chat-footer">
+            <input type="text" id="chat-input" placeholder="Type a command..." onkeypress="handleEnter(event)">
+            <button onclick="processCommand()">Send</button>
+        </div>
+    </div>
+
+
     <script>
         function toggleFollow() {
             const btn = document.getElementById('follow-btn');
