@@ -21,16 +21,16 @@ HireVest is a premium, high-performance job portal designed for the modern job-s
     ![home](Readme_Images/HomePage.jpg)
     
 - #### 📝 Job Listings
-    ![listing](Readme_Images/job_listing.jpg)
+    ![listing](Readme_Images/HireVest_Job-listings.jpg)
 
 - #### 📊 Financial Insights in Action
-    ![stock](Readme_Images/StockInAction.jpg)
+    ![stock](Readme_Images/HireVest_Stock_In_Action.jpg)
 
 - #### ⭐ Review System
     ![review-system](Readme_Images/Review_System.jpg)
 
 - #### 🤖 HireVest Navigational AI-Bot
-    ![ai-bot](Readme_Images/Navigation-bot.jpg)
+    ![ai-bot](Readme_Images/HireVest_assistance.jpg)
 
 ---
 
